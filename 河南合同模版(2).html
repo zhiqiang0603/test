@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>售电公司与电力零售用户委托代理合同</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "SimSun", "宋体", serif;
+      font-size: 14px;
+      line-height: 1.8;
+      color: #000;
+      background: #f5f5f5;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 20px auto;
+      padding: 20mm 25mm;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* 封面 */
+    .cover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 297mm;
+      padding: 40mm 25mm;
+    }
+
+    .cover-title {
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 6px;
+      text-align: center;
+      margin-bottom: 80px;
+      line-height: 1.6;
+    }
+
+    .cover-party {
+      width: 100%;
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    .cover-party .label {
+      display: inline-block;
+      width: 200px;
+    }
+
+    .cover-year {
+      font-size: 16px;
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    /* 变量占位符 */
+    .var {
+      display: inline-block;
+      min-width: 80px;
+      border-bottom: 1px solid #000;
+      text-align: center;
+      padding: 0 4px;
+      color: #c00;
+      font-weight: bold;
+    }
+
+    .var-long { min-width: 160px; }
+    .var-short { min-width: 40px; }
+    .var-xs { min-width: 20px; }
+
+    /* 章节标题 */
+    .section-title {
+      font-size: 15px;
+      font-weight: bold;
+      margin: 18px 0 8px;
+    }
+
+    /* 正文段落 */
+    .content p {
+      text-indent: 2em;
+      margin-bottom: 4px;
+    }
+
+    .no-indent { text-indent: 0 !important; }
+
+    /* 联系信息行 */
+    .info-line {
+      text-indent: 2em;
+      margin-bottom: 4px;
+    }
+
+    /* 横线 */
+    .blank-line {
+      width: 100%;
+      border-bottom: 1px solid #000;
+      height: 1.8em;
+      margin: 4px 0;
+    }
+
+    /* 签署区 */
+    .sign-area {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 60px;
+      margin-top: 40px;
+    }
+
+    .sign-block p {
+      margin-bottom: 10px;
+    }
+
+    /* 附件表格 */
+    .attachment-header {
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+      margin: 10px 0 4px;
+    }
+
+    .attachment-sub {
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .form-table {
+      width: 620px;
+      border-collapse: collapse;
+      margin: 8px 0 16px -10px;
+      font-size: 12px;
+      table-layout: fixed;
+    }
+
+    .form-table th,
+    .form-table td {
+      border: 1px solid #000;
+      padding: 4px 4px;
+      text-align: center;
+      font-weight: normal;
+      word-break: break-all;
+      overflow-wrap: break-word;
+      white-space: normal;
+    }
+
+    .form-table th {
+      background: #f5f5f5;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+
+    .form-table .var { border-bottom: none; }
+
+    .note {
+      font-size: 12px;
+      margin: 4px 0;
+    }
+
+    /* 签字页 */
+    .sign-page {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 297mm;
+      padding: 40mm 25mm;
+    }
+
+    .sign-page-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 60px;
+    }
+
+    .sign-page-block {
+      margin-bottom: 50px;
+    }
+
+    .sign-page-block p {
+      margin-bottom: 12px;
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page {
+        margin: 0;
+        padding: 18mm 22mm;
+        box-shadow: none;
+        page-break-after: always;
+      }
+      .var { color: #000; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==================== 封面 ==================== -->
+<div class="page cover">
+  <div class="cover-title">售电公司与电力零售用户<br>委托代理合同</div>
+  <div class="cover-party">
+    <span class="label">电力零售用户（甲方）：</span>
+    <span class="var var-long">{{partyAName}}</span>
+  </div>
+  <div class="cover-party">
+    <span class="label">售电公司（乙方）：</span>
+    <span class="var var-long">{{partyBName}}</span>
+  </div>
+  <div class="cover-year">二零二六年</div>
+</div>
+
+<!-- ==================== 正文第一页 ==================== -->
+<div class="page">
+  <div class="content">
+    <p>电力零售用户（甲方）：<span class="var var-long">{{partyAName}}</span>，系一家符合参与电力市场交易相关条件的电力零售用户，住所地为<span class="var var-long">{{partyAAddress}}</span>，在<span class="var">{{partyARegAuthority}}</span>登记注册，统一社会信用代码：<span class="var">{{partyACreditCode}}</span>。</p>
+    <p>法定代表人（或经营者）：<span class="var">{{partyALegalRep}}</span>。</p>
+  </div>
+  <p class="info-line">甲方联络通讯信息如下：</p>
+  <p class="info-line">联系人：<span class="var">{{partyAContact}}</span>。</p>
+  <p class="info-line">办公电话：<span class="var">{{partyAPhone}}</span>&nbsp;&nbsp;手机：<span class="var">{{partyAMobile}}</span>。</p>
+  <p class="info-line">通讯地址：<span class="var var-long">{{partyAMailAddress}}</span>。</p>
+
+  <div class="content" style="margin-top: 12px;">
+    <p>售电公司（乙方）：<span class="var var-long">{{partyBName}}</span>，系一家具有法人资格、具备电力交易资格的售电公司，住所地为<span class="var var-long">{{partyBAddress}}</span>，在<span class="var">{{partyBRegAuthority}}</span>市场监督管理机构登记注册，统一社会信用代码：<span class="var">{{partyBCreditCode}}</span>。</p>
+    <p>法定代表人：<span class="var">{{partyBLegalRep}}</span>。</p>
+  </div>
+  <p class="info-line">乙方联络通讯信息如下：</p>
+  <p class="info-line">联系人：<span class="var">{{partyBContact}}</span>。</p>
+  <p class="info-line">办公电话：<span class="var">{{partyBPhone}}</span>&nbsp;&nbsp;手机：<span class="var">{{partyBMobile}}</span>。</p>
+  <p class="info-line">通讯地址：<span class="var var-long">{{partyBMailAddress}}</span>。</p>
+
+  <div class="section-title">一、基本情况</div>
+  <div class="content">
+    <p>1.1 甲方为一家用电电压等级为<span class="var var-short">{{partyAVoltage}}</span>千伏（kV）、变压器容量为<span class="var var-short">{{partyATransformerCapacity}}</span>千伏安（kVA）、符合参与电力市场交易相关条件的电力零售用户。甲方用电量以电力交易平台注册生效的用电户号产生的除执行居民生活、农业生产目录销售电价以外的用电量为准。</p>
+    <p>1.2 甲方除执行居民生活、农业生产目录销售电价以外的年预计用电量为<span class="var">{{partyAYearlyUsage}}</span>兆瓦时（MWh）。</p>
+    <p>1.3 乙方在河南省拥有合法售电经营资格，并具有国家相关法规及文件所规定的售电设施、场所和专业能力。</p>
+    <p>1.4 甲乙双方均按照法律、行政法规、部门规章、地方性法规以及河南省电力市场相关规则、政策等规范性文件的规定进行电力市场交易。双方均同意并接受电力交易机构出具的正式结算依据。</p>
+    <p>1.5 甲、乙双方本着平等、自愿、公平和诚信的原则，经协商一致，签订本合同。</p>
+  </div>
+
+  <div class="section-title">二、定义和解释</div>
+  <div class="content">
+    <p>2.1 甲方月度零售交易计划电量是指乙方根据批发市场交易成交情况及甲方月度用电量需求分配至甲方的月度交易计划电量，作为甲方月度电量结算的依据。甲乙双方参照偏差责任约定内容进行月度交易计划电量分配和确认。</p>
+    <p>2.2 紧急情况是指电力系统发生事故或发电、输配电、用电设备发生重大事故，电网频率或者电压超出规定范围，输变电设备负载超过规定值，主干线路功率超出规定的稳定限额以及其他威胁电网安全运行，有可能破坏电网稳定，导致电网瓦解以至大面积停电等运行情况，并且该情况在结束后得到政府相关部门或能源监管机构的确认。</p>
+    <p>2.3 不可抗力指不能预见、不能避免并不能克服的客观情况。包括：火山爆发、龙卷风、台风、海啸、暴风雨、泥石流、山体滑坡、水灾、火灾、地震、雷电、雾闪等；核辐射、战争、瘟疫、骚乱等；国家法律、法规发生变化或者政府有关部门、能源监管机构出台有关规定、规则等。</p>
+    <p>2.4 电力交易机构是指河南电力交易中心有限公司。</p>
+    <p>2.5 电力交易平台是指电力交易机构负责建设及运维的电力市场交易技术支持系统，电力交易机构通过电力交易平台发布交易公告、交易结果，组织各类交易，并提供交易结算依据。</p>
+  </div>
+
+  <div class="section-title">三、合同期限和交易方式</div>
+  <div class="content">
+    <p>3.1 甲方同意将代理期开始日期<span class="var">{{contractStartDate}}</span>至<span class="var">{{contractEndDate}}</span>代理期结束日期期间的除执行居民生活、农业生产目录销售电价以外的用电量，委托乙方参与市场化交易。</p>
+    <p>3.2 在本合同履行期内，乙方负责依据电力市场政策和交易规则代理甲方参与电力批发市场交易，甲方参与市场化交易的用电户号执行国家政策、交易规则的相关要求，须完整、准确、及时告知乙方。乙方代理甲方参与交易期间，甲方在电网企业营销部门申请用电户号变更（含新增、注销等）前，须书面告知乙方，并按照交易规则及电力市场政策履行相关程序，由甲方在电力交易平台提交变更申请，并由乙方在电力交易平台确认。因甲方未履行告知程序及手续而造成的偏差责任，相关责任和损失由甲方承担。</p>
+    <p>3.3 在本合同履行期间，甲方参与交易的户号以甲、乙双方在电力交易平台确认的结果为准。</p>
+    <p>3.4 甲方授权乙方查看甲方历史各月用电量数据信息。</p>
+  </div>
+</div>
+
+<!-- ==================== 正文第二页 ==================== -->
+<div class="page">
+  <div class="section-title">四、甲方零售电价</div>
+  <div class="content">
+    <p>4.1 按照国家、河南省电力市场政策、交易规则及零售套餐模式的相关要求，甲方零售市场电能量交易价格由双方约定的方式<span class="var var-short">{{pricingMethod}}</span>中的<span class="var var-short">{{pricingSubMethod}}</span>形成，具体各月各小时零售电价、服务费、偏差考核约定等详情见附件一（附件须双方盖章）。</p>
+    <p><b>方式一：固定价格类零售套餐（平台设置可选季节非季节）</b></p>
+    <p class="no-indent" style="text-indent: 4em;">零售电价=双方约定的各时段固定价格。</p>
+    <p><b>方式二：联动模式类零售套餐</b></p>
+    <p class="no-indent" style="text-indent: 4em;">（1）售电公司均价联动模式</p>
+    <p class="no-indent" style="text-indent: 4em;">零售电价=售电公司该小时中长期及现货交易综合结算均价+该小时固定服务费；</p>
+    <p class="no-indent" style="text-indent: 4em;">现货市场未运行期间，零售电价=售电公司该小时中长期交易合同均价+该小时固定服务费。</p>
+    <p class="no-indent" style="text-indent: 4em;">（2）整体批发市场均价联动模式</p>
+    <p class="no-indent" style="text-indent: 4em;">零售电价=整体批发市场该小时中长期及现货综合结算均价+该小时固定服务费；</p>
+    <p class="no-indent" style="text-indent: 4em;">现货市场未运行期间，零售电价=整体批发市场该小时中长期交易合同均价+该小时固定服务费。</p>
+    <p><b>方式三：价差分成类套餐</b></p>
+    <p class="no-indent" style="text-indent: 4em;">零售电价=该小时基准价+分成比例×（售电公司该小时中长期及现货交易综合结算均价-该小时基准价）。</p>
+    <p class="no-indent" style="text-indent: 4em;">现货市场未运行期间，零售电价=该小时基准价+分成比例×（售电公司该小时中长期交易合同均价-该小时基准价）。</p>
+    <p class="no-indent" style="text-indent: 4em;">其中，该小时基准电价按<span class="var var-short">{{basePriceMethod}}</span>种方式进行约定：</p>
+    <p class="no-indent" style="text-indent: 4em;">（1）双方约定各时段的固定基准价格；</p>
+    <p class="no-indent" style="text-indent: 4em;">（2）整体批发市场该小时中长期及现货综合结算均价。现货市场未运行期间，为整体批发市场该小时中长期交易合同均价。</p>
+    <p>4.2 甲方零售市场绿色电力交易价格由4.1约定的电能量价格，叠加绿色电力环境价值（溢价）形成，其中绿色电力环境价值（溢价）由<span class="var var-short">{{greenPriceMethod}}</span>形成，详情见附件二（附件须双方盖章）。</p>
+    <p class="no-indent" style="text-indent: 4em;">（1）双方约定固定的绿色电力环境价值（溢价）。</p>
+    <p class="no-indent" style="text-indent: 4em;">（2）约定固定的环境价值基准价和分成比例，按照价差分成方式计算绿色电力环境价值：</p>
+    <p class="no-indent" style="text-indent: 4em;">绿色电力环境价值（溢价）=环境价值基准价+分成比例×（售电公司批发市场绿色电力环境价值-环境价值基准价）。</p>
+    <p>4.3 甲方参与绿色电力交易时，自愿承担绿色电力环境价值对应费用，绿色电力交易成交电量以甲方在交易平台确认的电量为准。</p>
+    <p>4.4 甲方执行两部制电价、功率因数调整等电价政策的，按照河南省最新有关政策规定执行。</p>
+  </div>
+
+  <div class="section-title">五、甲方月度零售交易计划电量安排及调整</div>
+  <div class="content">
+    <p>5.1 甲方在每月<span class="var var-short">{{reportDay}}</span>日前，向乙方报送或确认后续月份的用电量，作为乙方安排后续甲方月度零售交易计划电量的依据。</p>
+    <p>5.2 乙方负责及时通知甲方，根据本合同约定和批发市场成交情况，由乙方在电力交易平台上完成甲方月度零售交易计划电量分解、调整，甲方完成确认操作。甲方未进行确认操作的，甲、乙双方同意暂按照原有月度零售交易计划电量数值进行安排（合同期限内，甲方各月零售交易计划电量初始值为零），并须约定后续处理方式。</p>
+  </div>
+
+  <div class="section-title">六、计量与结算</div>
+  <div class="content">
+    <p>6.1 按甲方月度实际用电量结算，以供电企业电力计量装置采集并推送至电力交易机构发布的实际用电量为准。</p>
+    <p>6.2 在本合同执行期内，甲方零售市场交易价格由电力交易机构根据本合同中甲乙双方关于甲方零售电价的约定进行计算，以电力交易平台发布为准。甲乙双方对电力交易平台发布的甲方零售市场交易价格有异议时，可在电力交易机构规定时间内通过电力交易平台进行申诉，逾期未提出申诉视为无异议。</p>
+  </div>
+
+  <div class="section-title">七、偏差责任</div>
+  <div class="content">
+    <p>7.1 按照国家、河南省电力市场政策、交易规则及零售套餐模式的相关要求，甲、乙双方约定正偏差考核时段、负偏差考核时段，以及基准值、考核阈值及考核价格，详情见附件一。</p>
+  </div>
+
+  <div class="section-title">八、违约责任</div>
+  <div class="content">
+    <p>8.1 本合同签订后，甲方在同一交易周期内不得与其他任何一家公司（或企业）签订电力/电量交易合同或委托代理交易合同（或协议）。否则，甲方应向乙方支付违约赔偿金，违约赔偿金双方约定如下：<span class="var var-long">{{breachPenalty}}</span>。</p>
+    <p>8.2 甲、乙双方在履行本合同过程中，出现不履行合同义务或者履行合同义务不符合约定等违约情况的，违约方自愿承担相应的违约责任。</p>
+    <p>8.3 因一方违约，守约方主张违约方承担违约责任的，违约方除按照本合同约定承担违约责任外，还应赔偿守约方主张权利的费用，包括但不限于诉讼费、保全费、律师费、诉讼保全保险费、公证费及其他合理费用。</p>
+    <p>8.4 甲、乙双方对因签署和履行本合同而获得的对方商业秘密（包括但不限于本合同履行期间一方知悉对方的任何文件及材料），负有严格的保密义务，未经一方书面同意，另一方不得向第三方泄露。一方因违反保密义务给对方造成损失的，应当承担赔偿责任。损失无法证明或者确定时，守约的一方有权根据泄密的主观恶意程度和造成的影响、损失情况要求对方支付<span class="var var-short">{{penaltyMin}}</span>元至<span class="var var-short">{{penaltyMax}}</span>元不等的违约金。</p>
+  </div>
+</div>
+
+<!-- ==================== 正文第三页 ==================== -->
+<div class="page">
+  <div class="section-title">九、不可抗力和紧急事件</div>
+  <div class="content">
+    <p>9.1 本合同履行期间，一方遭遇不可抗力时，应及时通知对方，并提供相关证明文件，同时明确告知对方合同能否继续履行，或者是否需要调整合同履行方式及内容。遭遇不可抗力的一方履行告知义务后，无需承担违约责任或者损失赔偿责任，否则，应承担由此给对方造成的损失。</p>
+    <p>9.2 紧急事件属于意外事件，因遭遇紧急事件导致本合同暂不能履行或者给任何一方造成损失时，则双方互不承担任何责任。</p>
+  </div>
+
+  <div class="section-title">十、合同变更和解除</div>
+  <div class="content">
+    <p>10.1 本合同的任何变更必须以书面的形式进行，满足本合同约定生效条件方为有效，合同变更书面文件须提交电力交易机构备案。</p>
+    <p>10.2 因国家法律、法规发生变化或者政府有关部门、能源监管机构出台有关规定、规则，导致双方不能正常履行合同约定时，双方应相应变更本合同。</p>
+    <p>10.3 如任何一方发生下列事件，则另一方有权在发出解除通知后解除本合同。</p>
+    <p class="no-indent" style="text-indent: 4em;">（1）一方出现破产、清算或被吊销、注销营业执照。</p>
+    <p class="no-indent" style="text-indent: 4em;">（2）一方不具备法律法规、政策文件、交易规则规定的参与电力市场交易的准入条件。</p>
+    <p class="no-indent" style="text-indent: 4em;">（3）一方未按合同约定支付到期的应付款项，逾期超过<span class="var var-short">{{overdueDay}}</span>日且经另一方催告后仍未履行的。</p>
+    <p class="no-indent" style="text-indent: 4em;">（4）其他约定：<span class="var var-long">{{otherTermination}}</span>。</p>
+    <p>10.4 除法律法规、交易规则规定的合同解除条件和期满合同自动解除情形外，合同解除设置如下约定解除条款。</p>
+    <p class="no-indent" style="text-indent: 4em;">（一）甲、乙双方协商一致解除合同。</p>
+    <p class="no-indent" style="text-indent: 4em;">（二）甲、乙任何一方原因导致合同解除，则该方可通过支付赔偿金解除合同，赔偿金额按照以下第（<span class="var var-xs">{{terminationCompMethod}}</span>）种方式执行。</p>
+    <p class="no-indent" style="text-indent: 4em;">（1）赔偿金额为<span class="var var-short">{{terminationComp1}}</span>元人民币。</p>
+    <p class="no-indent" style="text-indent: 4em;">（2）赔偿金额为本合同约定的甲方年预计用电量与<span class="var var-short">{{terminationComp2}}</span>元/兆瓦时的乘积。</p>
+    <p class="no-indent" style="text-indent: 4em;">（3）赔偿金额为合同期限剩余未执行月数与<span class="var var-short">{{terminationComp3}}</span>元的乘积。</p>
+    <p>合同解除后，甲方、乙方应签订关于本合同的书面解除协议，并按照交易规则通过电力交易平台履行相关备案手续。</p>
+    <p>10.5 合同解除后应于<span class="var var-short">{{terminationNotifyDays}}</span>个工作日内书面告知电力交易机构，并提交电力交易机构所要求的解除协议及资料。</p>
+  </div>
+
+  <div class="section-title">十一、争议解决</div>
+  <div class="content">
+    <p>11.1 双方在合同履行过程中产生无法协商解决的纠纷时，则任何一方均有权按照以下第（<span class="var var-xs">{{disputeMethod}}</span>）种方式解决纠纷。</p>
+    <p class="no-indent" style="text-indent: 4em;">①向<span class="var">{{arbitrationInstitution}}</span>仲裁委员会提起仲裁。</p>
+    <p class="no-indent" style="text-indent: 4em;">②向<span class="var">{{litigationLocation}}</span>所在地的人民法院提起诉讼。</p>
+  </div>
+
+  <div class="section-title">十二、通知与送达</div>
+  <div class="content">
+    <p>12.1 本合同履行过程中，一方按照本合同列明的、以及双方在电力交易平台登记的通讯地址、联系电话、电子邮件等，采用邮寄、短信息、微信、电子邮件等方式向另一方发出通知或者文件时均视为送达。</p>
+    <p>12.2 一方通讯地址、联系电话或者电子邮件变更时，则应自变更之日起三日内通知另一方。否则，一方按照原通讯地址、联系电话、电子邮件向对方发出通知或者文件时，仍视为送达。</p>
+  </div>
+
+  <div class="section-title">十三、其他</div>
+  <div class="content">
+    <p>13.1 合同期内，合同有关条款及参数如遇电力市场政策和规则调整，按照最新的政策规则执行。</p>
+    <p>13.2 甲方必须按时全额缴纳包含政府性基金及附加在内的各类电费，必须遵守政府发布的有序用电相关规定。</p>
+    <p>13.3 合同签署人（法定代表人或授权代表）必须本人亲自签名。合同由授权代表签署的，需提供授权方法定代表人亲自签名的授权书。</p>
+    <p>13.4 甲乙双方已意识到参与市场交易存在风险，并自愿承担由此产生的所有责任和损失。乙方发生被暂停交易资格、退市等可能影响本合同执行的情况时，应及时告知甲方并妥善处理合同相关事宜。</p>
+    <p>13.5 本合同签订完毕后，乙方在电力交易平台完成委托代理关系绑定申请的提交，甲方在电力交易平台按照政策要求的认证方式完成确认操作。本合同约定的合同期限、零售电价、月度零售交易计划、偏差责任等相关内容，由甲、乙双方分别使用本方账号密码登录电力交易平台进行填写和确认，甲、乙双方结算、信息发布等相关业务将按照电力交易平台上的相关信息执行。</p>
+    <p>13.6 本合同自甲乙双方法定代表人（或授权代表）亲自签名、盖章（公章或合同专用章）、加盖骑缝章之日起生效。本合同一式<span class="var var-short">{{totalCopies}}</span>份，甲方执<span class="var var-short">{{partyACopies}}</span>份，乙方持<span class="var var-short">{{partyBCopies}}</span>份，具同等法律效力。（以下无正文）</p>
+  </div>
+</div>
+
+
+<!-- ==================== 附件一：2026年零售市场电能量交易零售套餐（固定价格季节性） ==================== -->
+<div class="page">
+  <div class="attachment-header">附件一：2026年零售市场电能量交易零售套餐（固定价格季节性）</div>
+  <table class="form-table">
+    <tr>
+      <th>甲方（盖章）</th>
+      <td colspan="6"><span class="var var-long">{{partyASeal}}</span></td>
+    </tr>
+    <tr>
+      <th>乙方（盖章）</th>
+      <td colspan="6"><span class="var var-long">{{partyBSeal}}</span></td>
+    </tr>
+    <tr>
+      <th>套餐类型</th>
+      <td colspan="6">固定价格类零售套餐</td>
+    </tr>
+    <tr>
+      <th>执行周期</th>
+      <td colspan="6">2026年1月1日-2026年1月31日，2026年7月1日-2026年8月31日，2026年12月1日-2026年12月31日</td>
+    </tr>
+    <tr>
+      <th>时段</th>
+      <th>零售电价（元/兆瓦时）</th>
+      <th>偏差考核基准（兆瓦时）</th>
+      <th>用户超用电量考核阈值（%）</th>
+      <th>用户少用电量考核阈值（%）</th>
+      <th>用户超用电量偏差考核费率（元/兆瓦时）</th>
+      <th>用户少用电量偏差考核费率（元/兆瓦时）</th>
+    </tr>
+    <tr><td>0:00-1:00</td><td><span class="var">{{s1a_price_0}}</span></td><td><span class="var">{{s1a_base_0}}</span></td><td><span class="var">{{s1a_over_0}}</span></td><td><span class="var">{{s1a_under_0}}</span></td><td><span class="var">{{s1a_overRate_0}}</span></td><td><span class="var">{{s1a_underRate_0}}</span></td></tr>
+    <tr><td>1:00-2:00</td><td><span class="var">{{s1a_price_1}}</span></td><td><span class="var">{{s1a_base_1}}</span></td><td><span class="var">{{s1a_over_1}}</span></td><td><span class="var">{{s1a_under_1}}</span></td><td><span class="var">{{s1a_overRate_1}}</span></td><td><span class="var">{{s1a_underRate_1}}</span></td></tr>
+    <tr><td>2:00-3:00</td><td><span class="var">{{s1a_price_2}}</span></td><td><span class="var">{{s1a_base_2}}</span></td><td><span class="var">{{s1a_over_2}}</span></td><td><span class="var">{{s1a_under_2}}</span></td><td><span class="var">{{s1a_overRate_2}}</span></td><td><span class="var">{{s1a_underRate_2}}</span></td></tr>
+    <tr><td>3:00-4:00</td><td><span class="var">{{s1a_price_3}}</span></td><td><span class="var">{{s1a_base_3}}</span></td><td><span class="var">{{s1a_over_3}}</span></td><td><span class="var">{{s1a_under_3}}</span></td><td><span class="var">{{s1a_overRate_3}}</span></td><td><span class="var">{{s1a_underRate_3}}</span></td></tr>
+    <tr><td>4:00-5:00</td><td><span class="var">{{s1a_price_4}}</span></td><td><span class="var">{{s1a_base_4}}</span></td><td><span class="var">{{s1a_over_4}}</span></td><td><span class="var">{{s1a_under_4}}</span></td><td><span class="var">{{s1a_overRate_4}}</span></td><td><span class="var">{{s1a_underRate_4}}</span></td></tr>
+    <tr><td>5:00-6:00</td><td><span class="var">{{s1a_price_5}}</span></td><td><span class="var">{{s1a_base_5}}</span></td><td><span class="var">{{s1a_over_5}}</span></td><td><span class="var">{{s1a_under_5}}</span></td><td><span class="var">{{s1a_overRate_5}}</span></td><td><span class="var">{{s1a_underRate_5}}</span></td></tr>
+    <tr><td>6:00-7:00</td><td><span class="var">{{s1a_price_6}}</span></td><td><span class="var">{{s1a_base_6}}</span></td><td><span class="var">{{s1a_over_6}}</span></td><td><span class="var">{{s1a_under_6}}</span></td><td><span class="var">{{s1a_overRate_6}}</span></td><td><span class="var">{{s1a_underRate_6}}</span></td></tr>
+    <tr><td>7:00-8:00</td><td><span class="var">{{s1a_price_7}}</span></td><td><span class="var">{{s1a_base_7}}</span></td><td><span class="var">{{s1a_over_7}}</span></td><td><span class="var">{{s1a_under_7}}</span></td><td><span class="var">{{s1a_overRate_7}}</span></td><td><span class="var">{{s1a_underRate_7}}</span></td></tr>
+    <tr><td>8:00-9:00</td><td><span class="var">{{s1a_price_8}}</span></td><td><span class="var">{{s1a_base_8}}</span></td><td><span class="var">{{s1a_over_8}}</span></td><td><span class="var">{{s1a_under_8}}</span></td><td><span class="var">{{s1a_overRate_8}}</span></td><td><span class="var">{{s1a_underRate_8}}</span></td></tr>
+    <tr><td>9:00-10:00</td><td><span class="var">{{s1a_price_9}}</span></td><td><span class="var">{{s1a_base_9}}</span></td><td><span class="var">{{s1a_over_9}}</span></td><td><span class="var">{{s1a_under_9}}</span></td><td><span class="var">{{s1a_overRate_9}}</span></td><td><span class="var">{{s1a_underRate_9}}</span></td></tr>
+    <tr><td>10:00-11:00</td><td><span class="var">{{s1a_price_10}}</span></td><td><span class="var">{{s1a_base_10}}</span></td><td><span class="var">{{s1a_over_10}}</span></td><td><span class="var">{{s1a_under_10}}</span></td><td><span class="var">{{s1a_overRate_10}}</span></td><td><span class="var">{{s1a_underRate_10}}</span></td></tr>
+    <tr><td>11:00-12:00</td><td><span class="var">{{s1a_price_11}}</span></td><td><span class="var">{{s1a_base_11}}</span></td><td><span class="var">{{s1a_over_11}}</span></td><td><span class="var">{{s1a_under_11}}</span></td><td><span class="var">{{s1a_overRate_11}}</span></td><td><span class="var">{{s1a_underRate_11}}</span></td></tr>
+    <tr><td>12:00-13:00</td><td><span class="var">{{s1a_price_12}}</span></td><td><span class="var">{{s1a_base_12}}</span></td><td><span class="var">{{s1a_over_12}}</span></td><td><span class="var">{{s1a_under_12}}</span></td><td><span class="var">{{s1a_overRate_12}}</span></td><td><span class="var">{{s1a_underRate_12}}</span></td></tr>
+    <tr><td>13:00-14:00</td><td><span class="var">{{s1a_price_13}}</span></td><td><span class="var">{{s1a_base_13}}</span></td><td><span class="var">{{s1a_over_13}}</span></td><td><span class="var">{{s1a_under_13}}</span></td><td><span class="var">{{s1a_overRate_13}}</span></td><td><span class="var">{{s1a_underRate_13}}</span></td></tr>
+    <tr><td>14:00-15:00</td><td><span class="var">{{s1a_price_14}}</span></td><td><span class="var">{{s1a_base_14}}</span></td><td><span class="var">{{s1a_over_14}}</span></td><td><span class="var">{{s1a_under_14}}</span></td><td><span class="var">{{s1a_overRate_14}}</span></td><td><span class="var">{{s1a_underRate_14}}</span></td></tr>
+    <tr><td>15:00-16:00</td><td><span class="var">{{s1a_price_15}}</span></td><td><span class="var">{{s1a_base_15}}</span></td><td><span class="var">{{s1a_over_15}}</span></td><td><span class="var">{{s1a_under_15}}</span></td><td><span class="var">{{s1a_overRate_15}}</span></td><td><span class="var">{{s1a_underRate_15}}</span></td></tr>
+    <tr><td>16:00-17:00</td><td><span class="var">{{s1a_price_16}}</span></td><td><span class="var">{{s1a_base_16}}</span></td><td><span class="var">{{s1a_over_16}}</span></td><td><span class="var">{{s1a_under_16}}</span></td><td><span class="var">{{s1a_overRate_16}}</span></td><td><span class="var">{{s1a_underRate_16}}</span></td></tr>
+    <tr><td>17:00-18:00</td><td><span class="var">{{s1a_price_17}}</span></td><td><span class="var">{{s1a_base_17}}</span></td><td><span class="var">{{s1a_over_17}}</span></td><td><span class="var">{{s1a_under_17}}</span></td><td><span class="var">{{s1a_overRate_17}}</span></td><td><span class="var">{{s1a_underRate_17}}</span></td></tr>
+    <tr><td>18:00-19:00</td><td><span class="var">{{s1a_price_18}}</span></td><td><span class="var">{{s1a_base_18}}</span></td><td><span class="var">{{s1a_over_18}}</span></td><td><span class="var">{{s1a_under_18}}</span></td><td><span class="var">{{s1a_overRate_18}}</span></td><td><span class="var">{{s1a_underRate_18}}</span></td></tr>
+    <tr><td>19:00-20:00</td><td><span class="var">{{s1a_price_19}}</span></td><td><span class="var">{{s1a_base_19}}</span></td><td><span class="var">{{s1a_over_19}}</span></td><td><span class="var">{{s1a_under_19}}</span></td><td><span class="var">{{s1a_overRate_19}}</span></td><td><span class="var">{{s1a_underRate_19}}</span></td></tr>
+    <tr><td>20:00-21:00</td><td><span class="var">{{s1a_price_20}}</span></td><td><span class="var">{{s1a_base_20}}</span></td><td><span class="var">{{s1a_over_20}}</span></td><td><span class="var">{{s1a_under_20}}</span></td><td><span class="var">{{s1a_overRate_20}}</span></td><td><span class="var">{{s1a_underRate_20}}</span></td></tr>
+    <tr><td>21:00-22:00</td><td><span class="var">{{s1a_price_21}}</span></td><td><span class="var">{{s1a_base_21}}</span></td><td><span class="var">{{s1a_over_21}}</span></td><td><span class="var">{{s1a_under_21}}</span></td><td><span class="var">{{s1a_overRate_21}}</span></td><td><span class="var">{{s1a_underRate_21}}</span></td></tr>
+    <tr><td>22:00-23:00</td><td><span class="var">{{s1a_price_22}}</span></td><td><span class="var">{{s1a_base_22}}</span></td><td><span class="var">{{s1a_over_22}}</span></td><td><span class="var">{{s1a_under_22}}</span></td><td><span class="var">{{s1a_overRate_22}}</span></td><td><span class="var">{{s1a_underRate_22}}</span></td></tr>
+    <tr><td>23:00-24:00</td><td><span class="var">{{s1a_price_23}}</span></td><td><span class="var">{{s1a_base_23}}</span></td><td><span class="var">{{s1a_over_23}}</span></td><td><span class="var">{{s1a_under_23}}</span></td><td><span class="var">{{s1a_overRate_23}}</span></td><td><span class="var">{{s1a_underRate_23}}</span></td></tr>
+  </table>
+  <p class="note">*1.套餐约定内容甲乙双方盖章后生效。</p>
+  <p class="note">*2.零售电价、偏差考核基准应保留小数点后三位。</p>
+</div>
+
+<!-- ==================== 附件一：2026年零售市场电能量交易零售套餐（固定价格季节性·非夏冬） ==================== -->
+<div class="page">
+  <div class="attachment-header">附件一：2026年零售市场电能量交易零售套餐（固定价格季节性）</div>
+  <table class="form-table">
+    <tr>
+      <th>甲方（盖章）</th>
+      <td colspan="6"><span class="var var-long">{{partyASeal}}</span></td>
+    </tr>
+    <tr>
+      <th>乙方（盖章）</th>
+      <td colspan="6"><span class="var var-long">{{partyBSeal}}</span></td>
+    </tr>
+    <tr>
+      <th>套餐类型</th>
+      <td colspan="6">固定价格类零售套餐</td>
+    </tr>
+    <tr>
+      <th>执行周期</th>
+      <td colspan="6">2026年2月1日-2026年6月30日，2026年9月1日-2026年11月30日</td>
+    </tr>
+    <tr>
+      <th>时段</th>
+      <th>零售电价（元/兆瓦时）</th>
+      <th>偏差考核基准（兆瓦时）</th>
+      <th>用户超用电量考核阈值（%）</th>
+      <th>用户少用电量考核阈值（%）</th>
+      <th>用户超用电量偏差考核费率（元/兆瓦时）</th>
+      <th>用户少用电量偏差考核费率（元/兆瓦时）</th>
+    </tr>
+    <tr><td>0:00-1:00</td><td><span class="var">{{s1b_price_0}}</span></td><td><span class="var">{{s1b_base_0}}</span></td><td><span class="var">{{s1b_over_0}}</span></td><td><span class="var">{{s1b_under_0}}</span></td><td><span class="var">{{s1b_overRate_0}}</span></td><td><span class="var">{{s1b_underRate_0}}</span></td></tr>
+    <tr><td>1:00-2:00</td><td><span class="var">{{s1b_price_1}}</span></td><td><span class="var">{{s1b_base_1}}</span></td><td><span class="var">{{s1b_over_1}}</span></td><td><span class="var">{{s1b_under_1}}</span></td><td><span class="var">{{s1b_overRate_1}}</span></td><td><span class="var">{{s1b_underRate_1}}</span></td></tr>
+    <tr><td>2:00-3:00</td><td><span class="var">{{s1b_price_2}}</span></td><td><span class="var">{{s1b_base_2}}</span></td><td><span class="var">{{s1b_over_2}}</span></td><td><span class="var">{{s1b_under_2}}</span></td><td><span class="var">{{s1b_overRate_2}}</span></td><td><span class="var">{{s1b_underRate_2}}</span></td></tr>
+    <tr><td>3:00-4:00</td><td><span class="var">{{s1b_price_3}}</span></td><td><span class="var">{{s1b_base_3}}</span></td><td><span class="var">{{s1b_over_3}}</span></td><td><span class="var">{{s1b_under_3}}</span></td><td><span class="var">{{s1b_overRate_3}}</span></td><td><span class="var">{{s1b_underRate_3}}</span></td></tr>
+    <tr><td>4:00-5:00</td><td><span class="var">{{s1b_price_4}}</span></td><td><span class="var">{{s1b_base_4}}</span></td><td><span class="var">{{s1b_over_4}}</span></td><td><span class="var">{{s1b_under_4}}</span></td><td><span class="var">{{s1b_overRate_4}}</span></td><td><span class="var">{{s1b_underRate_4}}</span></td></tr>
+    <tr><td>5:00-6:00</td><td><span class="var">{{s1b_price_5}}</span></td><td><span class="var">{{s1b_base_5}}</span></td><td><span class="var">{{s1b_over_5}}</span></td><td><span class="var">{{s1b_under_5}}</span></td><td><span class="var">{{s1b_overRate_5}}</span></td><td><span class="var">{{s1b_underRate_5}}</span></td></tr>
+    <tr><td>6:00-7:00</td><td><span class="var">{{s1b_price_6}}</span></td><td><span class="var">{{s1b_base_6}}</span></td><td><span class="var">{{s1b_over_6}}</span></td><td><span class="var">{{s1b_under_6}}</span></td><td><span class="var">{{s1b_overRate_6}}</span></td><td><span class="var">{{s1b_underRate_6}}</span></td></tr>
+    <tr><td>7:00-8:00</td><td><span class="var">{{s1b_price_7}}</span></td><td><span class="var">{{s1b_base_7}}</span></td><td><span class="var">{{s1b_over_7}}</span></td><td><span class="var">{{s1b_under_7}}</span></td><td><span class="var">{{s1b_overRate_7}}</span></td><td><span class="var">{{s1b_underRate_7}}</span></td></tr>
+    <tr><td>8:00-9:00</td><td><span class="var">{{s1b_price_8}}</span></td><td><span class="var">{{s1b_base_8}}</span></td><td><span class="var">{{s1b_over_8}}</span></td><td><span class="var">{{s1b_under_8}}</span></td><td><span class="var">{{s1b_overRate_8}}</span></td><td><span class="var">{{s1b_underRate_8}}</span></td></tr>
+    <tr><td>9:00-10:00</td><td><span class="var">{{s1b_price_9}}</span></td><td><span class="var">{{s1b_base_9}}</span></td><td><span class="var">{{s1b_over_9}}</span></td><td><span class="var">{{s1b_under_9}}</span></td><td><span class="var">{{s1b_overRate_9}}</span></td><td><span class="var">{{s1b_underRate_9}}</span></td></tr>
+    <tr><td>10:00-11:00</td><td><span class="var">{{s1b_price_10}}</span></td><td><span class="var">{{s1b_base_10}}</span></td><td><span class="var">{{s1b_over_10}}</span></td><td><span class="var">{{s1b_under_10}}</span></td><td><span class="var">{{s1b_overRate_10}}</span></td><td><span class="var">{{s1b_underRate_10}}</span></td></tr>
+    <tr><td>11:00-12:00</td><td><span class="var">{{s1b_price_11}}</span></td><td><span class="var">{{s1b_base_11}}</span></td><td><span class="var">{{s1b_over_11}}</span></td><td><span class="var">{{s1b_under_11}}</span></td><td><span class="var">{{s1b_overRate_11}}</span></td><td><span class="var">{{s1b_underRate_11}}</span></td></tr>
+    <tr><td>12:00-13:00</td><td><span class="var">{{s1b_price_12}}</span></td><td><span class="var">{{s1b_base_12}}</span></td><td><span class="var">{{s1b_over_12}}</span></td><td><span class="var">{{s1b_under_12}}</span></td><td><span class="var">{{s1b_overRate_12}}</span></td><td><span class="var">{{s1b_underRate_12}}</span></td></tr>
+    <tr><td>13:00-14:00</td><td><span class="var">{{s1b_price_13}}</span></td><td><span class="var">{{s1b_base_13}}</span></td><td><span class="var">{{s1b_over_13}}</span></td><td><span class="var">{{s1b_under_13}}</span></td><td><span class="var">{{s1b_overRate_13}}</span></td><td><span class="var">{{s1b_underRate_13}}</span></td></tr>
+    <tr><td>14:00-15:00</td><td><span class="var">{{s1b_price_14}}</span></td><td><span class="var">{{s1b_base_14}}</span></td><td><span class="var">{{s1b_over_14}}</span></td><td><span class="var">{{s1b_under_14}}</span></td><td><span class="var">{{s1b_overRate_14}}</span></td><td><span class="var">{{s1b_underRate_14}}</span></td></tr>
+    <tr><td>15:00-16:00</td><td><span class="var">{{s1b_price_15}}</span></td><td><span class="var">{{s1b_base_15}}</span></td><td><span class="var">{{s1b_over_15}}</span></td><td><span class="var">{{s1b_under_15}}</span></td><td><span class="var">{{s1b_overRate_15}}</span></td><td><span class="var">{{s1b_underRate_15}}</span></td></tr>
+    <tr><td>16:00-17:00</td><td><span class="var">{{s1b_price_16}}</span></td><td><span class="var">{{s1b_base_16}}</span></td><td><span class="var">{{s1b_over_16}}</span></td><td><span class="var">{{s1b_under_16}}</span></td><td><span class="var">{{s1b_overRate_16}}</span></td><td><span class="var">{{s1b_underRate_16}}</span></td></tr>
+    <tr><td>17:00-18:00</td><td><span class="var">{{s1b_price_17}}</span></td><td><span class="var">{{s1b_base_17}}</span></td><td><span class="var">{{s1b_over_17}}</span></td><td><span class="var">{{s1b_under_17}}</span></td><td><span class="var">{{s1b_overRate_17}}</span></td><td><span class="var">{{s1b_underRate_17}}</span></td></tr>
+    <tr><td>18:00-19:00</td><td><span class="var">{{s1b_price_18}}</span></td><td><span class="var">{{s1b_base_18}}</span></td><td><span class="var">{{s1b_over_18}}</span></td><td><span class="var">{{s1b_under_18}}</span></td><td><span class="var">{{s1b_overRate_18}}</span></td><td><span class="var">{{s1b_underRate_18}}</span></td></tr>
+    <tr><td>19:00-20:00</td><td><span class="var">{{s1b_price_19}}</span></td><td><span class="var">{{s1b_base_19}}</span></td><td><span class="var">{{s1b_over_19}}</span></td><td><span class="var">{{s1b_under_19}}</span></td><td><span class="var">{{s1b_overRate_19}}</span></td><td><span class="var">{{s1b_underRate_19}}</span></td></tr>
+    <tr><td>20:00-21:00</td><td><span class="var">{{s1b_price_20}}</span></td><td><span class="var">{{s1b_base_20}}</span></td><td><span class="var">{{s1b_over_20}}</span></td><td><span class="var">{{s1b_under_20}}</span></td><td><span class="var">{{s1b_overRate_20}}</span></td><td><span class="var">{{s1b_underRate_20}}</span></td></tr>
+    <tr><td>21:00-22:00</td><td><span class="var">{{s1b_price_21}}</span></td><td><span class="var">{{s1b_base_21}}</span></td><td><span class="var">{{s1b_over_21}}</span></td><td><span class="var">{{s1b_under_21}}</span></td><td><span class="var">{{s1b_overRate_21}}</span></td><td><span class="var">{{s1b_underRate_21}}</span></td></tr>
+    <tr><td>22:00-23:00</td><td><span class="var">{{s1b_price_22}}</span></td><td><span class="var">{{s1b_base_22}}</span></td><td><span class="var">{{s1b_over_22}}</span></td><td><span class="var">{{s1b_under_22}}</span></td><td><span class="var">{{s1b_overRate_22}}</span></td><td><span class="var">{{s1b_underRate_22}}</span></td></tr>
+    <tr><td>23:00-24:00</td><td><span class="var">{{s1b_price_23}}</span></td><td><span class="var">{{s1b_base_23}}</span></td><td><span class="var">{{s1b_over_23}}</span></td><td><span class="var">{{s1b_under_23}}</span></td><td><span class="var">{{s1b_overRate_23}}</span></td><td><span class="var">{{s1b_underRate_23}}</span></td></tr>
+  </table>
+  <p class="note">*1.套餐约定内容甲乙双方盖章后生效。</p>
+  <p class="note">*2.零售电价、偏差考核基准应保留小数点后三位。</p>
+</div>
+
+<!-- ==================== 附件一：2026年零售市场电能量交易零售套餐（固定价格非季节性） ==================== -->
+<div class="page">
+  <div class="attachment-header">附件一：2026年零售市场电能量交易零售套餐（固定价格非季节性）</div>
+  <table class="form-table">
+    <tr>
+      <th>甲方（盖章）</th>
+      <td colspan="6"><span class="var var-long">{{partyASeal}}</span></td>
+    </tr>
+    <tr>
+      <th>乙方（盖章）</th>
+      <td colspan="6"><span class="var var-long">{{partyBSeal}}</span></td>
+    </tr>
+    <tr>
+      <th>套餐类型</th>
+      <td colspan="6">固定价格类零售套餐</td>
+    </tr>
+    <tr>
+      <th>执行周期</th>
+      <td colspan="6">2026年1月1日-2026年12月31日</td>
+    </tr>
+    <tr>
+      <th>时段</th>
+      <th>零售电价（元/兆瓦时）</th>
+      <th>偏差考核基准（兆瓦时）</th>
+      <th>用户超用电量考核阈值（%）</th>
+      <th>用户少用电量考核阈值（%）</th>
+      <th>用户超用电量偏差考核费率（元/兆瓦时）</th>
+      <th>用户少用电量偏差考核费率（元/兆瓦时）</th>
+    </tr>
+    <tr><td>0:00-1:00</td><td><span class="var">{{ns1_price_0}}</span></td><td><span class="var">{{ns1_base_0}}</span></td><td><span class="var">{{ns1_over_0}}</span></td><td><span class="var">{{ns1_under_0}}</span></td><td><span class="var">{{ns1_overRate_0}}</span></td><td><span class="var">{{ns1_underRate_0}}</span></td></tr>
+    <tr><td>1:00-2:00</td><td><span class="var">{{ns1_price_1}}</span></td><td><span class="var">{{ns1_base_1}}</span></td><td><span class="var">{{ns1_over_1}}</span></td><td><span class="var">{{ns1_under_1}}</span></td><td><span class="var">{{ns1_overRate_1}}</span></td><td><span class="var">{{ns1_underRate_1}}</span></td></tr>
+    <tr><td>2:00-3:00</td><td><span class="var">{{ns1_price_2}}</span></td><td><span class="var">{{ns1_base_2}}</span></td><td><span class="var">{{ns1_over_2}}</span></td><td><span class="var">{{ns1_under_2}}</span></td><td><span class="var">{{ns1_overRate_2}}</span></td><td><span class="var">{{ns1_underRate_2}}</span></td></tr>
+    <tr><td>3:00-4:00</td><td><span class="var">{{ns1_price_3}}</span></td><td><span class="var">{{ns1_base_3}}</span></td><td><span class="var">{{ns1_over_3}}</span></td><td><span class="var">{{ns1_under_3}}</span></td><td><span class="var">{{ns1_overRate_3}}</span></td><td><span class="var">{{ns1_underRate_3}}</span></td></tr>
+    <tr><td>4:00-5:00</td><td><span class="var">{{ns1_price_4}}</span></td><td><span class="var">{{ns1_base_4}}</span></td><td><span class="var">{{ns1_over_4}}</span></td><td><span class="var">{{ns1_under_4}}</span></td><td><span class="var">{{ns1_overRate_4}}</span></td><td><span class="var">{{ns1_underRate_4}}</span></td></tr>
+    <tr><td>5:00-6:00</td><td><span class="var">{{ns1_price_5}}</span></td><td><span class="var">{{ns1_base_5}}</span></td><td><span class="var">{{ns1_over_5}}</span></td><td><span class="var">{{ns1_under_5}}</span></td><td><span class="var">{{ns1_overRate_5}}</span></td><td><span class="var">{{ns1_underRate_5}}</span></td></tr>
+    <tr><td>6:00-7:00</td><td><span class="var">{{ns1_price_6}}</span></td><td><span class="var">{{ns1_base_6}}</span></td><td><span class="var">{{ns1_over_6}}</span></td><td><span class="var">{{ns1_under_6}}</span></td><td><span class="var">{{ns1_overRate_6}}</span></td><td><span class="var">{{ns1_underRate_6}}</span></td></tr>
+    <tr><td>7:00-8:00</td><td><span class="var">{{ns1_price_7}}</span></td><td><span class="var">{{ns1_base_7}}</span></td><td><span class="var">{{ns1_over_7}}</span></td><td><span class="var">{{ns1_under_7}}</span></td><td><span class="var">{{ns1_overRate_7}}</span></td><td><span class="var">{{ns1_underRate_7}}</span></td></tr>
+    <tr><td>8:00-9:00</td><td><span class="var">{{ns1_price_8}}</span></td><td><span class="var">{{ns1_base_8}}</span></td><td><span class="var">{{ns1_over_8}}</span></td><td><span class="var">{{ns1_under_8}}</span></td><td><span class="var">{{ns1_overRate_8}}</span></td><td><span class="var">{{ns1_underRate_8}}</span></td></tr>
+    <tr><td>9:00-10:00</td><td><span class="var">{{ns1_price_9}}</span></td><td><span class="var">{{ns1_base_9}}</span></td><td><span class="var">{{ns1_over_9}}</span></td><td><span class="var">{{ns1_under_9}}</span></td><td><span class="var">{{ns1_overRate_9}}</span></td><td><span class="var">{{ns1_underRate_9}}</span></td></tr>
+    <tr><td>10:00-11:00</td><td><span class="var">{{ns1_price_10}}</span></td><td><span class="var">{{ns1_base_10}}</span></td><td><span class="var">{{ns1_over_10}}</span></td><td><span class="var">{{ns1_under_10}}</span></td><td><span class="var">{{ns1_overRate_10}}</span></td><td><span class="var">{{ns1_underRate_10}}</span></td></tr>
+    <tr><td>11:00-12:00</td><td><span class="var">{{ns1_price_11}}</span></td><td><span class="var">{{ns1_base_11}}</span></td><td><span class="var">{{ns1_over_11}}</span></td><td><span class="var">{{ns1_under_11}}</span></td><td><span class="var">{{ns1_overRate_11}}</span></td><td><span class="var">{{ns1_underRate_11}}</span></td></tr>
+    <tr><td>12:00-13:00</td><td><span class="var">{{ns1_price_12}}</span></td><td><span class="var">{{ns1_base_12}}</span></td><td><span class="var">{{ns1_over_12}}</span></td><td><span class="var">{{ns1_under_12}}</span></td><td><span class="var">{{ns1_overRate_12}}</span></td><td><span class="var">{{ns1_underRate_12}}</span></td></tr>
+    <tr><td>13:00-14:00</td><td><span class="var">{{ns1_price_13}}</span></td><td><span class="var">{{ns1_base_13}}</span></td><td><span class="var">{{ns1_over_13}}</span></td><td><span class="var">{{ns1_under_13}}</span></td><td><span class="var">{{ns1_overRate_13}}</span></td><td><span class="var">{{ns1_underRate_13}}</span></td></tr>
+    <tr><td>14:00-15:00</td><td><span class="var">{{ns1_price_14}}</span></td><td><span class="var">{{ns1_base_14}}</span></td><td><span class="var">{{ns1_over_14}}</span></td><td><span class="var">{{ns1_under_14}}</span></td><td><span class="var">{{ns1_overRate_14}}</span></td><td><span class="var">{{ns1_underRate_14}}</span></td></tr>
+    <tr><td>15:00-16:00</td><td><span class="var">{{ns1_price_15}}</span></td><td><span class="var">{{ns1_base_15}}</span></td><td><span class="var">{{ns1_over_15}}</span></td><td><span class="var">{{ns1_under_15}}</span></td><td><span class="var">{{ns1_overRate_15}}</span></td><td><span class="var">{{ns1_underRate_15}}</span></td></tr>
+    <tr><td>16:00-17:00</td><td><span class="var">{{ns1_price_16}}</span></td><td><span class="var">{{ns1_base_16}}</span></td><td><span class="var">{{ns1_over_16}}</span></td><td><span class="var">{{ns1_under_16}}</span></td><td><span class="var">{{ns1_overRate_16}}</span></td><td><span class="var">{{ns1_underRate_16}}</span></td></tr>
+    <tr><td>17:00-18:00</td><td><span class="var">{{ns1_price_17}}</span></td><td><span class="var">{{ns1_base_17}}</span></td><td><span class="var">{{ns1_over_17}}</span></td><td><span class="var">{{ns1_under_17}}</span></td><td><span class="var">{{ns1_overRate_17}}</span></td><td><span class="var">{{ns1_underRate_17}}</span></td></tr>
+    <tr><td>18:00-19:00</td><td><span class="var">{{ns1_price_18}}</span></td><td><span class="var">{{ns1_base_18}}</span></td><td><span class="var">{{ns1_over_18}}</span></td><td><span class="var">{{ns1_under_18}}</span></td><td><span class="var">{{ns1_overRate_18}}</span></td><td><span class="var">{{ns1_underRate_18}}</span></td></tr>
+    <tr><td>19:00-20:00</td><td><span class="var">{{ns1_price_19}}</span></td><td><span class="var">{{ns1_base_19}}</span></td><td><span class="var">{{ns1_over_19}}</span></td><td><span class="var">{{ns1_under_19}}</span></td><td><span class="var">{{ns1_overRate_19}}</span></td><td><span class="var">{{ns1_underRate_19}}</span></td></tr>
+    <tr><td>20:00-21:00</td><td><span class="var">{{ns1_price_20}}</span></td><td><span class="var">{{ns1_base_20}}</span></td><td><span class="var">{{ns1_over_20}}</span></td><td><span class="var">{{ns1_under_20}}</span></td><td><span class="var">{{ns1_overRate_20}}</span></td><td><span class="var">{{ns1_underRate_20}}</span></td></tr>
+    <tr><td>21:00-22:00</td><td><span class="var">{{ns1_price_21}}</span></td><td><span class="var">{{ns1_base_21}}</span></td><td><span class="var">{{ns1_over_21}}</span></td><td><span class="var">{{ns1_under_21}}</span></td><td><span class="var">{{ns1_overRate_21}}</span></td><td><span class="var">{{ns1_underRate_21}}</span></td></tr>
+    <tr><td>22:00-23:00</td><td><span class="var">{{ns1_price_22}}</span></td><td><span class="var">{{ns1_base_22}}</span></td><td><span class="var">{{ns1_over_22}}</span></td><td><span class="var">{{ns1_under_22}}</span></td><td><span class="var">{{ns1_overRate_22}}</span></td><td><span class="var">{{ns1_underRate_22}}</span></td></tr>
+    <tr><td>23:00-24:00</td><td><span class="var">{{ns1_price_23}}</span></td><td><span class="var">{{ns1_base_23}}</span></td><td><span class="var">{{ns1_over_23}}</span></td><td><span class="var">{{ns1_under_23}}</span></td><td><span class="var">{{ns1_overRate_23}}</span></td><td><span class="var">{{ns1_underRate_23}}</span></td></tr>
+  </table>
+  <p class="note">*1.套餐约定内容甲乙双方盖章后生效。</p>
+  <p class="note">*2.零售电价、偏差考核基准应保留小数点后三位。</p>
+</div>
+
+<!-- ==================== 附件一：2026年零售市场电能量交易零售套餐（联动模式） ==================== -->
+<div class="page">
+  <div class="attachment-header">附件一：2026年零售市场电能量交易零售套餐（联动模式）</div>
+  <table class="form-table">
+    <tr>
+      <th>甲方（盖章）</th>
+      <td colspan="6"><span class="var var-long">{{partyASeal}}</span></td>
+    </tr>
+    <tr>
+      <th>乙方（盖章）</th>
+      <td colspan="6"><span class="var var-long">{{partyBSeal}}</span></td>
+    </tr>
+    <tr>
+      <th>套餐类型</th>
+      <td colspan="6">联动模式类零售套餐-售电公司均价联动模式/整体批发市场均价联动模式</td>
+    </tr>
+    <tr>
+      <th>执行周期</th>
+      <td colspan="6">2026年1月1日-2026年12月31日</td>
+    </tr>
+    <tr>
+      <th>时段</th>
+      <th>服务费率（元/兆瓦时）</th>
+      <th>偏差考核基准（兆瓦时）</th>
+      <th>用户超用电量考核阈值（%）</th>
+      <th>用户少用电量考核阈值（%）</th>
+      <th>用户超用电量偏差考核费率（元/兆瓦时）</th>
+      <th>用户少用电量偏差考核费率（元/兆瓦时）</th>
+    </tr>
+    <tr><td>0:00-1:00</td><td><span class="var">{{lk_fee_0}}</span></td><td><span class="var">{{lk_base_0}}</span></td><td><span class="var">{{lk_over_0}}</span></td><td><span class="var">{{lk_under_0}}</span></td><td><span class="var">{{lk_overRate_0}}</span></td><td><span class="var">{{lk_underRate_0}}</span></td></tr>
+    <tr><td>1:00-2:00</td><td><span class="var">{{lk_fee_1}}</span></td><td><span class="var">{{lk_base_1}}</span></td><td><span class="var">{{lk_over_1}}</span></td><td><span class="var">{{lk_under_1}}</span></td><td><span class="var">{{lk_overRate_1}}</span></td><td><span class="var">{{lk_underRate_1}}</span></td></tr>
+    <tr><td>2:00-3:00</td><td><span class="var">{{lk_fee_2}}</span></td><td><span class="var">{{lk_base_2}}</span></td><td><span class="var">{{lk_over_2}}</span></td><td><span class="var">{{lk_under_2}}</span></td><td><span class="var">{{lk_overRate_2}}</span></td><td><span class="var">{{lk_underRate_2}}</span></td></tr>
+    <tr><td>3:00-4:00</td><td><span class="var">{{lk_fee_3}}</span></td><td><span class="var">{{lk_base_3}}</span></td><td><span class="var">{{lk_over_3}}</span></td><td><span class="var">{{lk_under_3}}</span></td><td><span class="var">{{lk_overRate_3}}</span></td><td><span class="var">{{lk_underRate_3}}</span></td></tr>
+    <tr><td>4:00-5:00</td><td><span class="var">{{lk_fee_4}}</span></td><td><span class="var">{{lk_base_4}}</span></td><td><span class="var">{{lk_over_4}}</span></td><td><span class="var">{{lk_under_4}}</span></td><td><span class="var">{{lk_overRate_4}}</span></td><td><span class="var">{{lk_underRate_4}}</span></td></tr>
+    <tr><td>5:00-6:00</td><td><span class="var">{{lk_fee_5}}</span></td><td><span class="var">{{lk_base_5}}</span></td><td><span class="var">{{lk_over_5}}</span></td><td><span class="var">{{lk_under_5}}</span></td><td><span class="var">{{lk_overRate_5}}</span></td><td><span class="var">{{lk_underRate_5}}</span></td></tr>
+    <tr><td>6:00-7:00</td><td><span class="var">{{lk_fee_6}}</span></td><td><span class="var">{{lk_base_6}}</span></td><td><span class="var">{{lk_over_6}}</span></td><td><span class="var">{{lk_under_6}}</span></td><td><span class="var">{{lk_overRate_6}}</span></td><td><span class="var">{{lk_underRate_6}}</span></td></tr>
+    <tr><td>7:00-8:00</td><td><span class="var">{{lk_fee_7}}</span></td><td><span class="var">{{lk_base_7}}</span></td><td><span class="var">{{lk_over_7}}</span></td><td><span class="var">{{lk_under_7}}</span></td><td><span class="var">{{lk_overRate_7}}</span></td><td><span class="var">{{lk_underRate_7}}</span></td></tr>
+    <tr><td>8:00-9:00</td><td><span class="var">{{lk_fee_8}}</span></td><td><span class="var">{{lk_base_8}}</span></td><td><span class="var">{{lk_over_8}}</span></td><td><span class="var">{{lk_under_8}}</span></td><td><span class="var">{{lk_overRate_8}}</span></td><td><span class="var">{{lk_underRate_8}}</span></td></tr>
+    <tr><td>9:00-10:00</td><td><span class="var">{{lk_fee_9}}</span></td><td><span class="var">{{lk_base_9}}</span></td><td><span class="var">{{lk_over_9}}</span></td><td><span class="var">{{lk_under_9}}</span></td><td><span class="var">{{lk_overRate_9}}</span></td><td><span class="var">{{lk_underRate_9}}</span></td></tr>
+    <tr><td>10:00-11:00</td><td><span class="var">{{lk_fee_10}}</span></td><td><span class="var">{{lk_base_10}}</span></td><td><span class="var">{{lk_over_10}}</span></td><td><span class="var">{{lk_under_10}}</span></td><td><span class="var">{{lk_overRate_10}}</span></td><td><span class="var">{{lk_underRate_10}}</span></td></tr>
+    <tr><td>11:00-12:00</td><td><span class="var">{{lk_fee_11}}</span></td><td><span class="var">{{lk_base_11}}</span></td><td><span class="var">{{lk_over_11}}</span></td><td><span class="var">{{lk_under_11}}</span></td><td><span class="var">{{lk_overRate_11}}</span></td><td><span class="var">{{lk_underRate_11}}</span></td></tr>
+    <tr><td>12:00-13:00</td><td><span class="var">{{lk_fee_12}}</span></td><td><span class="var">{{lk_base_12}}</span></td><td><span class="var">{{lk_over_12}}</span></td><td><span class="var">{{lk_under_12}}</span></td><td><span class="var">{{lk_overRate_12}}</span></td><td><span class="var">{{lk_underRate_12}}</span></td></tr>
+    <tr><td>13:00-14:00</td><td><span class="var">{{lk_fee_13}}</span></td><td><span class="var">{{lk_base_13}}</span></td><td><span class="var">{{lk_over_13}}</span></td><td><span class="var">{{lk_under_13}}</span></td><td><span class="var">{{lk_overRate_13}}</span></td><td><span class="var">{{lk_underRate_13}}</span></td></tr>
+    <tr><td>14:00-15:00</td><td><span class="var">{{lk_fee_14}}</span></td><td><span class="var">{{lk_base_14}}</span></td><td><span class="var">{{lk_over_14}}</span></td><td><span class="var">{{lk_under_14}}</span></td><td><span class="var">{{lk_overRate_14}}</span></td><td><span class="var">{{lk_underRate_14}}</span></td></tr>
+    <tr><td>15:00-16:00</td><td><span class="var">{{lk_fee_15}}</span></td><td><span class="var">{{lk_base_15}}</span></td><td><span class="var">{{lk_over_15}}</span></td><td><span class="var">{{lk_under_15}}</span></td><td><span class="var">{{lk_overRate_15}}</span></td><td><span class="var">{{lk_underRate_15}}</span></td></tr>
+    <tr><td>16:00-17:00</td><td><span class="var">{{lk_fee_16}}</span></td><td><span class="var">{{lk_base_16}}</span></td><td><span class="var">{{lk_over_16}}</span></td><td><span class="var">{{lk_under_16}}</span></td><td><span class="var">{{lk_overRate_16}}</span></td><td><span class="var">{{lk_underRate_16}}</span></td></tr>
+    <tr><td>17:00-18:00</td><td><span class="var">{{lk_fee_17}}</span></td><td><span class="var">{{lk_base_17}}</span></td><td><span class="var">{{lk_over_17}}</span></td><td><span class="var">{{lk_under_17}}</span></td><td><span class="var">{{lk_overRate_17}}</span></td><td><span class="var">{{lk_underRate_17}}</span></td></tr>
+    <tr><td>18:00-19:00</td><td><span class="var">{{lk_fee_18}}</span></td><td><span class="var">{{lk_base_18}}</span></td><td><span class="var">{{lk_over_18}}</span></td><td><span class="var">{{lk_under_18}}</span></td><td><span class="var">{{lk_overRate_18}}</span></td><td><span class="var">{{lk_underRate_18}}</span></td></tr>
+    <tr><td>19:00-20:00</td><td><span class="var">{{lk_fee_19}}</span></td><td><span class="var">{{lk_base_19}}</span></td><td><span class="var">{{lk_over_19}}</span></td><td><span class="var">{{lk_under_19}}</span></td><td><span class="var">{{lk_overRate_19}}</span></td><td><span class="var">{{lk_underRate_19}}</span></td></tr>
+    <tr><td>20:00-21:00</td><td><span class="var">{{lk_fee_20}}</span></td><td><span class="var">{{lk_base_20}}</span></td><td><span class="var">{{lk_over_20}}</span></td><td><span class="var">{{lk_under_20}}</span></td><td><span class="var">{{lk_overRate_20}}</span></td><td><span class="var">{{lk_underRate_20}}</span></td></tr>
+    <tr><td>21:00-22:00</td><td><span class="var">{{lk_fee_21}}</span></td><td><span class="var">{{lk_base_21}}</span></td><td><span class="var">{{lk_over_21}}</span></td><td><span class="var">{{lk_under_21}}</span></td><td><span class="var">{{lk_overRate_21}}</span></td><td><span class="var">{{lk_underRate_21}}</span></td></tr>
+    <tr><td>22:00-23:00</td><td><span class="var">{{lk_fee_22}}</span></td><td><span class="var">{{lk_base_22}}</span></td><td><span class="var">{{lk_over_22}}</span></td><td><span class="var">{{lk_under_22}}</span></td><td><span class="var">{{lk_overRate_22}}</span></td><td><span class="var">{{lk_underRate_22}}</span></td></tr>
+    <tr><td>23:00-24:00</td><td><span class="var">{{lk_fee_23}}</span></td><td><span class="var">{{lk_base_23}}</span></td><td><span class="var">{{lk_over_23}}</span></td><td><span class="var">{{lk_under_23}}</span></td><td><span class="var">{{lk_overRate_23}}</span></td><td><span class="var">{{lk_underRate_23}}</span></td></tr>
+  </table>
+  <p class="note">*1.套餐约定内容甲乙双方盖章后生效。</p>
+  <p class="note">*2.服务费率、偏差考核基准应保留小数点后三位。</p>
+</div>
+
+<!-- ==================== 附件一：2026年零售市场电能量交易零售套餐（价差分成季节性·夏冬） ==================== -->
+<div class="page">
+  <div class="attachment-header">附件一：2026年零售市场电能量交易零售套餐（价差分成季节性）</div>
+  <table class="form-table">
+    <tr>
+      <th>甲方（盖章）</th>
+      <td colspan="8"><span class="var var-long">{{partyASeal}}</span></td>
+    </tr>
+    <tr>
+      <th>乙方（盖章）</th>
+      <td colspan="8"><span class="var var-long">{{partyBSeal}}</span></td>
+    </tr>
+    <tr>
+      <th>套餐类型</th>
+      <td colspan="8">价差分成类套餐</td>
+    </tr>
+    <tr>
+      <th>执行周期</th>
+      <td colspan="8">2026年1月1日-2026年1月31日，2026年7月1日-2026年8月31日，2026年12月1日-2026年12月31日</td>
+    </tr>
+    <tr>
+      <th>时段</th>
+      <th>基准电价（元/兆瓦时）</th>
+      <th>正收益用户分成比例（%）</th>
+      <th>负收益用户分摊比例（%）</th>
+      <th>偏差考核基准（兆瓦时）</th>
+      <th>用户超用电量考核阈值（%）</th>
+      <th>用户少用电量考核阈值（%）</th>
+      <th>用户超用电量偏差考核费率（元/兆瓦时）</th>
+      <th>用户少用电量偏差考核费率（元/兆瓦时）</th>
+    </tr>
+    <tr><td>0:00-1:00</td><td><span class="var">{{jja_base_0}}</span></td><td><span class="var">{{jja_pos_0}}</span></td><td><span class="var">{{jja_neg_0}}</span></td><td><span class="var">{{jja_dev_0}}</span></td><td><span class="var">{{jja_over_0}}</span></td><td><span class="var">{{jja_under_0}}</span></td><td><span class="var">{{jja_overRate_0}}</span></td><td><span class="var">{{jja_underRate_0}}</span></td></tr>
+    <tr><td>1:00-2:00</td><td><span class="var">{{jja_base_1}}</span></td><td><span class="var">{{jja_pos_1}}</span></td><td><span class="var">{{jja_neg_1}}</span></td><td><span class="var">{{jja_dev_1}}</span></td><td><span class="var">{{jja_over_1}}</span></td><td><span class="var">{{jja_under_1}}</span></td><td><span class="var">{{jja_overRate_1}}</span></td><td><span class="var">{{jja_underRate_1}}</span></td></tr>
+    <tr><td>2:00-3:00</td><td><span class="var">{{jja_base_2}}</span></td><td><span class="var">{{jja_pos_2}}</span></td><td><span class="var">{{jja_neg_2}}</span></td><td><span class="var">{{jja_dev_2}}</span></td><td><span class="var">{{jja_over_2}}</span></td><td><span class="var">{{jja_under_2}}</span></td><td><span class="var">{{jja_overRate_2}}</span></td><td><span class="var">{{jja_underRate_2}}</span></td></tr>
+    <tr><td>3:00-4:00</td><td><span class="var">{{jja_base_3}}</span></td><td><span class="var">{{jja_pos_3}}</span></td><td><span class="var">{{jja_neg_3}}</span></td><td><span class="var">{{jja_dev_3}}</span></td><td><span class="var">{{jja_over_3}}</span></td><td><span class="var">{{jja_under_3}}</span></td><td><span class="var">{{jja_overRate_3}}</span></td><td><span class="var">{{jja_underRate_3}}</span></td></tr>
+    <tr><td>4:00-5:00</td><td><span class="var">{{jja_base_4}}</span></td><td><span class="var">{{jja_pos_4}}</span></td><td><span class="var">{{jja_neg_4}}</span></td><td><span class="var">{{jja_dev_4}}</span></td><td><span class="var">{{jja_over_4}}</span></td><td><span class="var">{{jja_under_4}}</span></td><td><span class="var">{{jja_overRate_4}}</span></td><td><span class="var">{{jja_underRate_4}}</span></td></tr>
+    <tr><td>5:00-6:00</td><td><span class="var">{{jja_base_5}}</span></td><td><span class="var">{{jja_pos_5}}</span></td><td><span class="var">{{jja_neg_5}}</span></td><td><span class="var">{{jja_dev_5}}</span></td><td><span class="var">{{jja_over_5}}</span></td><td><span class="var">{{jja_under_5}}</span></td><td><span class="var">{{jja_overRate_5}}</span></td><td><span class="var">{{jja_underRate_5}}</span></td></tr>
+    <tr><td>6:00-7:00</td><td><span class="var">{{jja_base_6}}</span></td><td><span class="var">{{jja_pos_6}}</span></td><td><span class="var">{{jja_neg_6}}</span></td><td><span class="var">{{jja_dev_6}}</span></td><td><span class="var">{{jja_over_6}}</span></td><td><span class="var">{{jja_under_6}}</span></td><td><span class="var">{{jja_overRate_6}}</span></td><td><span class="var">{{jja_underRate_6}}</span></td></tr>
+    <tr><td>7:00-8:00</td><td><span class="var">{{jja_base_7}}</span></td><td><span class="var">{{jja_pos_7}}</span></td><td><span class="var">{{jja_neg_7}}</span></td><td><span class="var">{{jja_dev_7}}</span></td><td><span class="var">{{jja_over_7}}</span></td><td><span class="var">{{jja_under_7}}</span></td><td><span class="var">{{jja_overRate_7}}</span></td><td><span class="var">{{jja_underRate_7}}</span></td></tr>
+    <tr><td>8:00-9:00</td><td><span class="var">{{jja_base_8}}</span></td><td><span class="var">{{jja_pos_8}}</span></td><td><span class="var">{{jja_neg_8}}</span></td><td><span class="var">{{jja_dev_8}}</span></td><td><span class="var">{{jja_over_8}}</span></td><td><span class="var">{{jja_under_8}}</span></td><td><span class="var">{{jja_overRate_8}}</span></td><td><span class="var">{{jja_underRate_8}}</span></td></tr>
+    <tr><td>9:00-10:00</td><td><span class="var">{{jja_base_9}}</span></td><td><span class="var">{{jja_pos_9}}</span></td><td><span class="var">{{jja_neg_9}}</span></td><td><span class="var">{{jja_dev_9}}</span></td><td><span class="var">{{jja_over_9}}</span></td><td><span class="var">{{jja_under_9}}</span></td><td><span class="var">{{jja_overRate_9}}</span></td><td><span class="var">{{jja_underRate_9}}</span></td></tr>
+    <tr><td>10:00-11:00</td><td><span class="var">{{jja_base_10}}</span></td><td><span class="var">{{jja_pos_10}}</span></td><td><span class="var">{{jja_neg_10}}</span></td><td><span class="var">{{jja_dev_10}}</span></td><td><span class="var">{{jja_over_10}}</span></td><td><span class="var">{{jja_under_10}}</span></td><td><span class="var">{{jja_overRate_10}}</span></td><td><span class="var">{{jja_underRate_10}}</span></td></tr>
+    <tr><td>11:00-12:00</td><td><span class="var">{{jja_base_11}}</span></td><td><span class="var">{{jja_pos_11}}</span></td><td><span class="var">{{jja_neg_11}}</span></td><td><span class="var">{{jja_dev_11}}</span></td><td><span class="var">{{jja_over_11}}</span></td><td><span class="var">{{jja_under_11}}</span></td><td><span class="var">{{jja_overRate_11}}</span></td><td><span class="var">{{jja_underRate_11}}</span></td></tr>
+    <tr><td>12:00-13:00</td><td><span class="var">{{jja_base_12}}</span></td><td><span class="var">{{jja_pos_12}}</span></td><td><span class="var">{{jja_neg_12}}</span></td><td><span class="var">{{jja_dev_12}}</span></td><td><span class="var">{{jja_over_12}}</span></td><td><span class="var">{{jja_under_12}}</span></td><td><span class="var">{{jja_overRate_12}}</span></td><td><span class="var">{{jja_underRate_12}}</span></td></tr>
+    <tr><td>13:00-14:00</td><td><span class="var">{{jja_base_13}}</span></td><td><span class="var">{{jja_pos_13}}</span></td><td><span class="var">{{jja_neg_13}}</span></td><td><span class="var">{{jja_dev_13}}</span></td><td><span class="var">{{jja_over_13}}</span></td><td><span class="var">{{jja_under_13}}</span></td><td><span class="var">{{jja_overRate_13}}</span></td><td><span class="var">{{jja_underRate_13}}</span></td></tr>
+    <tr><td>14:00-15:00</td><td><span class="var">{{jja_base_14}}</span></td><td><span class="var">{{jja_pos_14}}</span></td><td><span class="var">{{jja_neg_14}}</span></td><td><span class="var">{{jja_dev_14}}</span></td><td><span class="var">{{jja_over_14}}</span></td><td><span class="var">{{jja_under_14}}</span></td><td><span class="var">{{jja_overRate_14}}</span></td><td><span class="var">{{jja_underRate_14}}</span></td></tr>
+    <tr><td>15:00-16:00</td><td><span class="var">{{jja_base_15}}</span></td><td><span class="var">{{jja_pos_15}}</span></td><td><span class="var">{{jja_neg_15}}</span></td><td><span class="var">{{jja_dev_15}}</span></td><td><span class="var">{{jja_over_15}}</span></td><td><span class="var">{{jja_under_15}}</span></td><td><span class="var">{{jja_overRate_15}}</span></td><td><span class="var">{{jja_underRate_15}}</span></td></tr>
+    <tr><td>16:00-17:00</td><td><span class="var">{{jja_base_16}}</span></td><td><span class="var">{{jja_pos_16}}</span></td><td><span class="var">{{jja_neg_16}}</span></td><td><span class="var">{{jja_dev_16}}</span></td><td><span class="var">{{jja_over_16}}</span></td><td><span class="var">{{jja_under_16}}</span></td><td><span class="var">{{jja_overRate_16}}</span></td><td><span class="var">{{jja_underRate_16}}</span></td></tr>
+    <tr><td>17:00-18:00</td><td><span class="var">{{jja_base_17}}</span></td><td><span class="var">{{jja_pos_17}}</span></td><td><span class="var">{{jja_neg_17}}</span></td><td><span class="var">{{jja_dev_17}}</span></td><td><span class="var">{{jja_over_17}}</span></td><td><span class="var">{{jja_under_17}}</span></td><td><span class="var">{{jja_overRate_17}}</span></td><td><span class="var">{{jja_underRate_17}}</span></td></tr>
+    <tr><td>18:00-19:00</td><td><span class="var">{{jja_base_18}}</span></td><td><span class="var">{{jja_pos_18}}</span></td><td><span class="var">{{jja_neg_18}}</span></td><td><span class="var">{{jja_dev_18}}</span></td><td><span class="var">{{jja_over_18}}</span></td><td><span class="var">{{jja_under_18}}</span></td><td><span class="var">{{jja_overRate_18}}</span></td><td><span class="var">{{jja_underRate_18}}</span></td></tr>
+    <tr><td>19:00-20:00</td><td><span class="var">{{jja_base_19}}</span></td><td><span class="var">{{jja_pos_19}}</span></td><td><span class="var">{{jja_neg_19}}</span></td><td><span class="var">{{jja_dev_19}}</span></td><td><span class="var">{{jja_over_19}}</span></td><td><span class="var">{{jja_under_19}}</span></td><td><span class="var">{{jja_overRate_19}}</span></td><td><span class="var">{{jja_underRate_19}}</span></td></tr>
+    <tr><td>20:00-21:00</td><td><span class="var">{{jja_base_20}}</span></td><td><span class="var">{{jja_pos_20}}</span></td><td><span class="var">{{jja_neg_20}}</span></td><td><span class="var">{{jja_dev_20}}</span></td><td><span class="var">{{jja_over_20}}</span></td><td><span class="var">{{jja_under_20}}</span></td><td><span class="var">{{jja_overRate_20}}</span></td><td><span class="var">{{jja_underRate_20}}</span></td></tr>
+    <tr><td>21:00-22:00</td><td><span class="var">{{jja_base_21}}</span></td><td><span class="var">{{jja_pos_21}}</span></td><td><span class="var">{{jja_neg_21}}</span></td><td><span class="var">{{jja_dev_21}}</span></td><td><span class="var">{{jja_over_21}}</span></td><td><span class="var">{{jja_under_21}}</span></td><td><span class="var">{{jja_overRate_21}}</span></td><td><span class="var">{{jja_underRate_21}}</span></td></tr>
+    <tr><td>22:00-23:00</td><td><span class="var">{{jja_base_22}}</span></td><td><span class="var">{{jja_pos_22}}</span></td><td><span class="var">{{jja_neg_22}}</span></td><td><span class="var">{{jja_dev_22}}</span></td><td><span class="var">{{jja_over_22}}</span></td><td><span class="var">{{jja_under_22}}</span></td><td><span class="var">{{jja_overRate_22}}</span></td><td><span class="var">{{jja_underRate_22}}</span></td></tr>
+    <tr><td>23:00-24:00</td><td><span class="var">{{jja_base_23}}</span></td><td><span class="var">{{jja_pos_23}}</span></td><td><span class="var">{{jja_neg_23}}</span></td><td><span class="var">{{jja_dev_23}}</span></td><td><span class="var">{{jja_over_23}}</span></td><td><span class="var">{{jja_under_23}}</span></td><td><span class="var">{{jja_overRate_23}}</span></td><td><span class="var">{{jja_underRate_23}}</span></td></tr>
+  </table>
+  <p class="note">*1.套餐约定内容甲乙双方盖章后生效。</p>
+  <p class="note">*2.基准电价、偏差考核基准应保留小数点后三位。</p>
+</div>
+
+<!-- ==================== 附件一：2026年零售市场电能量交易零售套餐（价差分成季节性·非夏冬） ==================== -->
+<div class="page">
+  <div class="attachment-header">附件一：2026年零售市场电能量交易零售套餐（价差分成季节性）</div>
+  <table class="form-table">
+    <tr>
+      <th>甲方（盖章）</th>
+      <td colspan="8"><span class="var var-long">{{partyASeal}}</span></td>
+    </tr>
+    <tr>
+      <th>乙方（盖章）</th>
+      <td colspan="8"><span class="var var-long">{{partyBSeal}}</span></td>
+    </tr>
+    <tr>
+      <th>套餐类型</th>
+      <td colspan="8">价差分成类套餐</td>
+    </tr>
+    <tr>
+      <th>执行周期</th>
+      <td colspan="8">2026年2月1日-2026年6月30日，2026年9月1日-2026年11月30日</td>
+    </tr>
+    <tr>
+      <th>时段</th>
+      <th>基准电价（元/兆瓦时）</th>
+      <th>正收益用户分成比例（%）</th>
+      <th>负收益用户分摊比例（%）</th>
+      <th>偏差考核基准（兆瓦时）</th>
+      <th>用户超用电量考核阈值（%）</th>
+      <th>用户少用电量考核阈值（%）</th>
+      <th>用户超用电量偏差考核费率（元/兆瓦时）</th>
+      <th>用户少用电量偏差考核费率（元/兆瓦时）</th>
+    </tr>
+    <tr><td>0:00-1:00</td><td><span class="var">{{jjb_base_0}}</span></td><td><span class="var">{{jjb_pos_0}}</span></td><td><span class="var">{{jjb_neg_0}}</span></td><td><span class="var">{{jjb_dev_0}}</span></td><td><span class="var">{{jjb_over_0}}</span></td><td><span class="var">{{jjb_under_0}}</span></td><td><span class="var">{{jjb_overRate_0}}</span></td><td><span class="var">{{jjb_underRate_0}}</span></td></tr>
+    <tr><td>1:00-2:00</td><td><span class="var">{{jjb_base_1}}</span></td><td><span class="var">{{jjb_pos_1}}</span></td><td><span class="var">{{jjb_neg_1}}</span></td><td><span class="var">{{jjb_dev_1}}</span></td><td><span class="var">{{jjb_over_1}}</span></td><td><span class="var">{{jjb_under_1}}</span></td><td><span class="var">{{jjb_overRate_1}}</span></td><td><span class="var">{{jjb_underRate_1}}</span></td></tr>
+    <tr><td>2:00-3:00</td><td><span class="var">{{jjb_base_2}}</span></td><td><span class="var">{{jjb_pos_2}}</span></td><td><span class="var">{{jjb_neg_2}}</span></td><td><span class="var">{{jjb_dev_2}}</span></td><td><span class="var">{{jjb_over_2}}</span></td><td><span class="var">{{jjb_under_2}}</span></td><td><span class="var">{{jjb_overRate_2}}</span></td><td><span class="var">{{jjb_underRate_2}}</span></td></tr>
+    <tr><td>3:00-4:00</td><td><span class="var">{{jjb_base_3}}</span></td><td><span class="var">{{jjb_pos_3}}</span></td><td><span class="var">{{jjb_neg_3}}</span></td><td><span class="var">{{jjb_dev_3}}</span></td><td><span class="var">{{jjb_over_3}}</span></td><td><span class="var">{{jjb_under_3}}</span></td><td><span class="var">{{jjb_overRate_3}}</span></td><td><span class="var">{{jjb_underRate_3}}</span></td></tr>
+    <tr><td>4:00-5:00</td><td><span class="var">{{jjb_base_4}}</span></td><td><span class="var">{{jjb_pos_4}}</span></td><td><span class="var">{{jjb_neg_4}}</span></td><td><span class="var">{{jjb_dev_4}}</span></td><td><span class="var">{{jjb_over_4}}</span></td><td><span class="var">{{jjb_under_4}}</span></td><td><span class="var">{{jjb_overRate_4}}</span></td><td><span class="var">{{jjb_underRate_4}}</span></td></tr>
+    <tr><td>5:00-6:00</td><td><span class="var">{{jjb_base_5}}</span></td><td><span class="var">{{jjb_pos_5}}</span></td><td><span class="var">{{jjb_neg_5}}</span></td><td><span class="var">{{jjb_dev_5}}</span></td><td><span class="var">{{jjb_over_5}}</span></td><td><span class="var">{{jjb_under_5}}</span></td><td><span class="var">{{jjb_overRate_5}}</span></td><td><span class="var">{{jjb_underRate_5}}</span></td></tr>
+    <tr><td>6:00-7:00</td><td><span class="var">{{jjb_base_6}}</span></td><td><span class="var">{{jjb_pos_6}}</span></td><td><span class="var">{{jjb_neg_6}}</span></td><td><span class="var">{{jjb_dev_6}}</span></td><td><span class="var">{{jjb_over_6}}</span></td><td><span class="var">{{jjb_under_6}}</span></td><td><span class="var">{{jjb_overRate_6}}</span></td><td><span class="var">{{jjb_underRate_6}}</span></td></tr>
+    <tr><td>7:00-8:00</td><td><span class="var">{{jjb_base_7}}</span></td><td><span class="var">{{jjb_pos_7}}</span></td><td><span class="var">{{jjb_neg_7}}</span></td><td><span class="var">{{jjb_dev_7}}</span></td><td><span class="var">{{jjb_over_7}}</span></td><td><span class="var">{{jjb_under_7}}</span></td><td><span class="var">{{jjb_overRate_7}}</span></td><td><span class="var">{{jjb_underRate_7}}</span></td></tr>
+    <tr><td>8:00-9:00</td><td><span class="var">{{jjb_base_8}}</span></td><td><span class="var">{{jjb_pos_8}}</span></td><td><span class="var">{{jjb_neg_8}}</span></td><td><span class="var">{{jjb_dev_8}}</span></td><td><span class="var">{{jjb_over_8}}</span></td><td><span class="var">{{jjb_under_8}}</span></td><td><span class="var">{{jjb_overRate_8}}</span></td><td><span class="var">{{jjb_underRate_8}}</span></td></tr>
+    <tr><td>9:00-10:00</td><td><span class="var">{{jjb_base_9}}</span></td><td><span class="var">{{jjb_pos_9}}</span></td><td><span class="var">{{jjb_neg_9}}</span></td><td><span class="var">{{jjb_dev_9}}</span></td><td><span class="var">{{jjb_over_9}}</span></td><td><span class="var">{{jjb_under_9}}</span></td><td><span class="var">{{jjb_overRate_9}}</span></td><td><span class="var">{{jjb_underRate_9}}</span></td></tr>
+    <tr><td>10:00-11:00</td><td><span class="var">{{jjb_base_10}}</span></td><td><span class="var">{{jjb_pos_10}}</span></td><td><span class="var">{{jjb_neg_10}}</span></td><td><span class="var">{{jjb_dev_10}}</span></td><td><span class="var">{{jjb_over_10}}</span></td><td><span class="var">{{jjb_under_10}}</span></td><td><span class="var">{{jjb_overRate_10}}</span></td><td><span class="var">{{jjb_underRate_10}}</span></td></tr>
+    <tr><td>11:00-12:00</td><td><span class="var">{{jjb_base_11}}</span></td><td><span class="var">{{jjb_pos_11}}</span></td><td><span class="var">{{jjb_neg_11}}</span></td><td><span class="var">{{jjb_dev_11}}</span></td><td><span class="var">{{jjb_over_11}}</span></td><td><span class="var">{{jjb_under_11}}</span></td><td><span class="var">{{jjb_overRate_11}}</span></td><td><span class="var">{{jjb_underRate_11}}</span></td></tr>
+    <tr><td>12:00-13:00</td><td><span class="var">{{jjb_base_12}}</span></td><td><span class="var">{{jjb_pos_12}}</span></td><td><span class="var">{{jjb_neg_12}}</span></td><td><span class="var">{{jjb_dev_12}}</span></td><td><span class="var">{{jjb_over_12}}</span></td><td><span class="var">{{jjb_under_12}}</span></td><td><span class="var">{{jjb_overRate_12}}</span></td><td><span class="var">{{jjb_underRate_12}}</span></td></tr>
+    <tr><td>13:00-14:00</td><td><span class="var">{{jjb_base_13}}</span></td><td><span class="var">{{jjb_pos_13}}</span></td><td><span class="var">{{jjb_neg_13}}</span></td><td><span class="var">{{jjb_dev_13}}</span></td><td><span class="var">{{jjb_over_13}}</span></td><td><span class="var">{{jjb_under_13}}</span></td><td><span class="var">{{jjb_overRate_13}}</span></td><td><span class="var">{{jjb_underRate_13}}</span></td></tr>
+    <tr><td>14:00-15:00</td><td><span class="var">{{jjb_base_14}}</span></td><td><span class="var">{{jjb_pos_14}}</span></td><td><span class="var">{{jjb_neg_14}}</span></td><td><span class="var">{{jjb_dev_14}}</span></td><td><span class="var">{{jjb_over_14}}</span></td><td><span class="var">{{jjb_under_14}}</span></td><td><span class="var">{{jjb_overRate_14}}</span></td><td><span class="var">{{jjb_underRate_14}}</span></td></tr>
+    <tr><td>15:00-16:00</td><td><span class="var">{{jjb_base_15}}</span></td><td><span class="var">{{jjb_pos_15}}</span></td><td><span class="var">{{jjb_neg_15}}</span></td><td><span class="var">{{jjb_dev_15}}</span></td><td><span class="var">{{jjb_over_15}}</span></td><td><span class="var">{{jjb_under_15}}</span></td><td><span class="var">{{jjb_overRate_15}}</span></td><td><span class="var">{{jjb_underRate_15}}</span></td></tr>
+    <tr><td>16:00-17:00</td><td><span class="var">{{jjb_base_16}}</span></td><td><span class="var">{{jjb_pos_16}}</span></td><td><span class="var">{{jjb_neg_16}}</span></td><td><span class="var">{{jjb_dev_16}}</span></td><td><span class="var">{{jjb_over_16}}</span></td><td><span class="var">{{jjb_under_16}}</span></td><td><span class="var">{{jjb_overRate_16}}</span></td><td><span class="var">{{jjb_underRate_16}}</span></td></tr>
+    <tr><td>17:00-18:00</td><td><span class="var">{{jjb_base_17}}</span></td><td><span class="var">{{jjb_pos_17}}</span></td><td><span class="var">{{jjb_neg_17}}</span></td><td><span class="var">{{jjb_dev_17}}</span></td><td><span class="var">{{jjb_over_17}}</span></td><td><span class="var">{{jjb_under_17}}</span></td><td><span class="var">{{jjb_overRate_17}}</span></td><td><span class="var">{{jjb_underRate_17}}</span></td></tr>
+    <tr><td>18:00-19:00</td><td><span class="var">{{jjb_base_18}}</span></td><td><span class="var">{{jjb_pos_18}}</span></td><td><span class="var">{{jjb_neg_18}}</span></td><td><span class="var">{{jjb_dev_18}}</span></td><td><span class="var">{{jjb_over_18}}</span></td><td><span class="var">{{jjb_under_18}}</span></td><td><span class="var">{{jjb_overRate_18}}</span></td><td><span class="var">{{jjb_underRate_18}}</span></td></tr>
+    <tr><td>19:00-20:00</td><td><span class="var">{{jjb_base_19}}</span></td><td><span class="var">{{jjb_pos_19}}</span></td><td><span class="var">{{jjb_neg_19}}</span></td><td><span class="var">{{jjb_dev_19}}</span></td><td><span class="var">{{jjb_over_19}}</span></td><td><span class="var">{{jjb_under_19}}</span></td><td><span class="var">{{jjb_overRate_19}}</span></td><td><span class="var">{{jjb_underRate_19}}</span></td></tr>
+    <tr><td>20:00-21:00</td><td><span class="var">{{jjb_base_20}}</span></td><td><span class="var">{{jjb_pos_20}}</span></td><td><span class="var">{{jjb_neg_20}}</span></td><td><span class="var">{{jjb_dev_20}}</span></td><td><span class="var">{{jjb_over_20}}</span></td><td><span class="var">{{jjb_under_20}}</span></td><td><span class="var">{{jjb_overRate_20}}</span></td><td><span class="var">{{jjb_underRate_20}}</span></td></tr>
+    <tr><td>21:00-22:00</td><td><span class="var">{{jjb_base_21}}</span></td><td><span class="var">{{jjb_pos_21}}</span></td><td><span class="var">{{jjb_neg_21}}</span></td><td><span class="var">{{jjb_dev_21}}</span></td><td><span class="var">{{jjb_over_21}}</span></td><td><span class="var">{{jjb_under_21}}</span></td><td><span class="var">{{jjb_overRate_21}}</span></td><td><span class="var">{{jjb_underRate_21}}</span></td></tr>
+    <tr><td>22:00-23:00</td><td><span class="var">{{jjb_base_22}}</span></td><td><span class="var">{{jjb_pos_22}}</span></td><td><span class="var">{{jjb_neg_22}}</span></td><td><span class="var">{{jjb_dev_22}}</span></td><td><span class="var">{{jjb_over_22}}</span></td><td><span class="var">{{jjb_under_22}}</span></td><td><span class="var">{{jjb_overRate_22}}</span></td><td><span class="var">{{jjb_underRate_22}}</span></td></tr>
+    <tr><td>23:00-24:00</td><td><span class="var">{{jjb_base_23}}</span></td><td><span class="var">{{jjb_pos_23}}</span></td><td><span class="var">{{jjb_neg_23}}</span></td><td><span class="var">{{jjb_dev_23}}</span></td><td><span class="var">{{jjb_over_23}}</span></td><td><span class="var">{{jjb_under_23}}</span></td><td><span class="var">{{jjb_overRate_23}}</span></td><td><span class="var">{{jjb_underRate_23}}</span></td></tr>
+  </table>
+  <p class="note">*1.套餐约定内容甲乙双方盖章后生效。</p>
+  <p class="note">*2.基准电价、偏差考核基准应保留小数点后三位。</p>
+</div>
+
+<!-- ==================== 附件一：2026年零售市场电能量交易零售套餐（价差分成非季节性） ==================== -->
+<div class="page">
+  <div class="attachment-header">附件一：2026年零售市场电能量交易零售套餐（价差分成非季节性）</div>
+  <table class="form-table">
+    <tr>
+      <th>甲方（盖章）</th>
+      <td colspan="8"><span class="var var-long">{{partyASeal}}</span></td>
+    </tr>
+    <tr>
+      <th>乙方（盖章）</th>
+      <td colspan="8"><span class="var var-long">{{partyBSeal}}</span></td>
+    </tr>
+    <tr>
+      <th>套餐类型</th>
+      <td colspan="8">价差分成类套餐</td>
+    </tr>
+    <tr>
+      <th>执行周期</th>
+      <td colspan="8">2026年1月1日-2026年12月31日</td>
+    </tr>
+    <tr>
+      <th>时段</th>
+      <th>基准电价（元/兆瓦时）</th>
+      <th>正收益用户分成比例（%）</th>
+      <th>负收益用户分摊比例（%）</th>
+      <th>偏差考核基准（兆瓦时）</th>
+      <th>用户超用电量考核阈值（%）</th>
+      <th>用户少用电量考核阈值（%）</th>
+      <th>用户超用电量偏差考核费率（元/兆瓦时）</th>
+      <th>用户少用电量偏差考核费率（元/兆瓦时）</th>
+    </tr>
+    <tr><td>0:00-1:00</td><td><span class="var">{{jjns_base_0}}</span></td><td><span class="var">{{jjns_pos_0}}</span></td><td><span class="var">{{jjns_neg_0}}</span></td><td><span class="var">{{jjns_dev_0}}</span></td><td><span class="var">{{jjns_over_0}}</span></td><td><span class="var">{{jjns_under_0}}</span></td><td><span class="var">{{jjns_overRate_0}}</span></td><td><span class="var">{{jjns_underRate_0}}</span></td></tr>
+    <tr><td>1:00-2:00</td><td><span class="var">{{jjns_base_1}}</span></td><td><span class="var">{{jjns_pos_1}}</span></td><td><span class="var">{{jjns_neg_1}}</span></td><td><span class="var">{{jjns_dev_1}}</span></td><td><span class="var">{{jjns_over_1}}</span></td><td><span class="var">{{jjns_under_1}}</span></td><td><span class="var">{{jjns_overRate_1}}</span></td><td><span class="var">{{jjns_underRate_1}}</span></td></tr>
+    <tr><td>2:00-3:00</td><td><span class="var">{{jjns_base_2}}</span></td><td><span class="var">{{jjns_pos_2}}</span></td><td><span class="var">{{jjns_neg_2}}</span></td><td><span class="var">{{jjns_dev_2}}</span></td><td><span class="var">{{jjns_over_2}}</span></td><td><span class="var">{{jjns_under_2}}</span></td><td><span class="var">{{jjns_overRate_2}}</span></td><td><span class="var">{{jjns_underRate_2}}</span></td></tr>
+    <tr><td>3:00-4:00</td><td><span class="var">{{jjns_base_3}}</span></td><td><span class="var">{{jjns_pos_3}}</span></td><td><span class="var">{{jjns_neg_3}}</span></td><td><span class="var">{{jjns_dev_3}}</span></td><td><span class="var">{{jjns_over_3}}</span></td><td><span class="var">{{jjns_under_3}}</span></td><td><span class="var">{{jjns_overRate_3}}</span></td><td><span class="var">{{jjns_underRate_3}}</span></td></tr>
+    <tr><td>4:00-5:00</td><td><span class="var">{{jjns_base_4}}</span></td><td><span class="var">{{jjns_pos_4}}</span></td><td><span class="var">{{jjns_neg_4}}</span></td><td><span class="var">{{jjns_dev_4}}</span></td><td><span class="var">{{jjns_over_4}}</span></td><td><span class="var">{{jjns_under_4}}</span></td><td><span class="var">{{jjns_overRate_4}}</span></td><td><span class="var">{{jjns_underRate_4}}</span></td></tr>
+    <tr><td>5:00-6:00</td><td><span class="var">{{jjns_base_5}}</span></td><td><span class="var">{{jjns_pos_5}}</span></td><td><span class="var">{{jjns_neg_5}}</span></td><td><span class="var">{{jjns_dev_5}}</span></td><td><span class="var">{{jjns_over_5}}</span></td><td><span class="var">{{jjns_under_5}}</span></td><td><span class="var">{{jjns_overRate_5}}</span></td><td><span class="var">{{jjns_underRate_5}}</span></td></tr>
+    <tr><td>6:00-7:00</td><td><span class="var">{{jjns_base_6}}</span></td><td><span class="var">{{jjns_pos_6}}</span></td><td><span class="var">{{jjns_neg_6}}</span></td><td><span class="var">{{jjns_dev_6}}</span></td><td><span class="var">{{jjns_over_6}}</span></td><td><span class="var">{{jjns_under_6}}</span></td><td><span class="var">{{jjns_overRate_6}}</span></td><td><span class="var">{{jjns_underRate_6}}</span></td></tr>
+    <tr><td>7:00-8:00</td><td><span class="var">{{jjns_base_7}}</span></td><td><span class="var">{{jjns_pos_7}}</span></td><td><span class="var">{{jjns_neg_7}}</span></td><td><span class="var">{{jjns_dev_7}}</span></td><td><span class="var">{{jjns_over_7}}</span></td><td><span class="var">{{jjns_under_7}}</span></td><td><span class="var">{{jjns_overRate_7}}</span></td><td><span class="var">{{jjns_underRate_7}}</span></td></tr>
+    <tr><td>8:00-9:00</td><td><span class="var">{{jjns_base_8}}</span></td><td><span class="var">{{jjns_pos_8}}</span></td><td><span class="var">{{jjns_neg_8}}</span></td><td><span class="var">{{jjns_dev_8}}</span></td><td><span class="var">{{jjns_over_8}}</span></td><td><span class="var">{{jjns_under_8}}</span></td><td><span class="var">{{jjns_overRate_8}}</span></td><td><span class="var">{{jjns_underRate_8}}</span></td></tr>
+    <tr><td>9:00-10:00</td><td><span class="var">{{jjns_base_9}}</span></td><td><span class="var">{{jjns_pos_9}}</span></td><td><span class="var">{{jjns_neg_9}}</span></td><td><span class="var">{{jjns_dev_9}}</span></td><td><span class="var">{{jjns_over_9}}</span></td><td><span class="var">{{jjns_under_9}}</span></td><td><span class="var">{{jjns_overRate_9}}</span></td><td><span class="var">{{jjns_underRate_9}}</span></td></tr>
+    <tr><td>10:00-11:00</td><td><span class="var">{{jjns_base_10}}</span></td><td><span class="var">{{jjns_pos_10}}</span></td><td><span class="var">{{jjns_neg_10}}</span></td><td><span class="var">{{jjns_dev_10}}</span></td><td><span class="var">{{jjns_over_10}}</span></td><td><span class="var">{{jjns_under_10}}</span></td><td><span class="var">{{jjns_overRate_10}}</span></td><td><span class="var">{{jjns_underRate_10}}</span></td></tr>
+    <tr><td>11:00-12:00</td><td><span class="var">{{jjns_base_11}}</span></td><td><span class="var">{{jjns_pos_11}}</span></td><td><span class="var">{{jjns_neg_11}}</span></td><td><span class="var">{{jjns_dev_11}}</span></td><td><span class="var">{{jjns_over_11}}</span></td><td><span class="var">{{jjns_under_11}}</span></td><td><span class="var">{{jjns_overRate_11}}</span></td><td><span class="var">{{jjns_underRate_11}}</span></td></tr>
+    <tr><td>12:00-13:00</td><td><span class="var">{{jjns_base_12}}</span></td><td><span class="var">{{jjns_pos_12}}</span></td><td><span class="var">{{jjns_neg_12}}</span></td><td><span class="var">{{jjns_dev_12}}</span></td><td><span class="var">{{jjns_over_12}}</span></td><td><span class="var">{{jjns_under_12}}</span></td><td><span class="var">{{jjns_overRate_12}}</span></td><td><span class="var">{{jjns_underRate_12}}</span></td></tr>
+    <tr><td>13:00-14:00</td><td><span class="var">{{jjns_base_13}}</span></td><td><span class="var">{{jjns_pos_13}}</span></td><td><span class="var">{{jjns_neg_13}}</span></td><td><span class="var">{{jjns_dev_13}}</span></td><td><span class="var">{{jjns_over_13}}</span></td><td><span class="var">{{jjns_under_13}}</span></td><td><span class="var">{{jjns_overRate_13}}</span></td><td><span class="var">{{jjns_underRate_13}}</span></td></tr>
+    <tr><td>14:00-15:00</td><td><span class="var">{{jjns_base_14}}</span></td><td><span class="var">{{jjns_pos_14}}</span></td><td><span class="var">{{jjns_neg_14}}</span></td><td><span class="var">{{jjns_dev_14}}</span></td><td><span class="var">{{jjns_over_14}}</span></td><td><span class="var">{{jjns_under_14}}</span></td><td><span class="var">{{jjns_overRate_14}}</span></td><td><span class="var">{{jjns_underRate_14}}</span></td></tr>
+    <tr><td>15:00-16:00</td><td><span class="var">{{jjns_base_15}}</span></td><td><span class="var">{{jjns_pos_15}}</span></td><td><span class="var">{{jjns_neg_15}}</span></td><td><span class="var">{{jjns_dev_15}}</span></td><td><span class="var">{{jjns_over_15}}</span></td><td><span class="var">{{jjns_under_15}}</span></td><td><span class="var">{{jjns_overRate_15}}</span></td><td><span class="var">{{jjns_underRate_15}}</span></td></tr>
+    <tr><td>16:00-17:00</td><td><span class="var">{{jjns_base_16}}</span></td><td><span class="var">{{jjns_pos_16}}</span></td><td><span class="var">{{jjns_neg_16}}</span></td><td><span class="var">{{jjns_dev_16}}</span></td><td><span class="var">{{jjns_over_16}}</span></td><td><span class="var">{{jjns_under_16}}</span></td><td><span class="var">{{jjns_overRate_16}}</span></td><td><span class="var">{{jjns_underRate_16}}</span></td></tr>
+    <tr><td>17:00-18:00</td><td><span class="var">{{jjns_base_17}}</span></td><td><span class="var">{{jjns_pos_17}}</span></td><td><span class="var">{{jjns_neg_17}}</span></td><td><span class="var">{{jjns_dev_17}}</span></td><td><span class="var">{{jjns_over_17}}</span></td><td><span class="var">{{jjns_under_17}}</span></td><td><span class="var">{{jjns_overRate_17}}</span></td><td><span class="var">{{jjns_underRate_17}}</span></td></tr>
+    <tr><td>18:00-19:00</td><td><span class="var">{{jjns_base_18}}</span></td><td><span class="var">{{jjns_pos_18}}</span></td><td><span class="var">{{jjns_neg_18}}</span></td><td><span class="var">{{jjns_dev_18}}</span></td><td><span class="var">{{jjns_over_18}}</span></td><td><span class="var">{{jjns_under_18}}</span></td><td><span class="var">{{jjns_overRate_18}}</span></td><td><span class="var">{{jjns_underRate_18}}</span></td></tr>
+    <tr><td>19:00-20:00</td><td><span class="var">{{jjns_base_19}}</span></td><td><span class="var">{{jjns_pos_19}}</span></td><td><span class="var">{{jjns_neg_19}}</span></td><td><span class="var">{{jjns_dev_19}}</span></td><td><span class="var">{{jjns_over_19}}</span></td><td><span class="var">{{jjns_under_19}}</span></td><td><span class="var">{{jjns_overRate_19}}</span></td><td><span class="var">{{jjns_underRate_19}}</span></td></tr>
+    <tr><td>20:00-21:00</td><td><span class="var">{{jjns_base_20}}</span></td><td><span class="var">{{jjns_pos_20}}</span></td><td><span class="var">{{jjns_neg_20}}</span></td><td><span class="var">{{jjns_dev_20}}</span></td><td><span class="var">{{jjns_over_20}}</span></td><td><span class="var">{{jjns_under_20}}</span></td><td><span class="var">{{jjns_overRate_20}}</span></td><td><span class="var">{{jjns_underRate_20}}</span></td></tr>
+    <tr><td>21:00-22:00</td><td><span class="var">{{jjns_base_21}}</span></td><td><span class="var">{{jjns_pos_21}}</span></td><td><span class="var">{{jjns_neg_21}}</span></td><td><span class="var">{{jjns_dev_21}}</span></td><td><span class="var">{{jjns_over_21}}</span></td><td><span class="var">{{jjns_under_21}}</span></td><td><span class="var">{{jjns_overRate_21}}</span></td><td><span class="var">{{jjns_underRate_21}}</span></td></tr>
+    <tr><td>22:00-23:00</td><td><span class="var">{{jjns_base_22}}</span></td><td><span class="var">{{jjns_pos_22}}</span></td><td><span class="var">{{jjns_neg_22}}</span></td><td><span class="var">{{jjns_dev_22}}</span></td><td><span class="var">{{jjns_over_22}}</span></td><td><span class="var">{{jjns_under_22}}</span></td><td><span class="var">{{jjns_overRate_22}}</span></td><td><span class="var">{{jjns_underRate_22}}</span></td></tr>
+    <tr><td>23:00-24:00</td><td><span class="var">{{jjns_base_23}}</span></td><td><span class="var">{{jjns_pos_23}}</span></td><td><span class="var">{{jjns_neg_23}}</span></td><td><span class="var">{{jjns_dev_23}}</span></td><td><span class="var">{{jjns_over_23}}</span></td><td><span class="var">{{jjns_under_23}}</span></td><td><span class="var">{{jjns_overRate_23}}</span></td><td><span class="var">{{jjns_underRate_23}}</span></td></tr>
+  </table>
+  <p class="note">*1.套餐约定内容甲乙双方盖章后生效。</p>
+  <p class="note">*2.基准电价、偏差考核基准应保留小数点后三位。</p>
+</div>
+
+<!-- ==================== 附件一：2026年零售市场电能量交易零售套餐（价差分成批发均价） ==================== -->
+<div class="page">
+  <div class="attachment-header">附件一：2026年零售市场电能量交易零售套餐（价差分成批发均价）</div>
+  <table class="form-table">
+    <tr>
+      <th>甲方（盖章）</th>
+      <td colspan="8"><span class="var var-long">{{partyASeal}}</span></td>
+    </tr>
+    <tr>
+      <th>乙方（盖章）</th>
+      <td colspan="8"><span class="var var-long">{{partyBSeal}}</span></td>
+    </tr>
+    <tr>
+      <th>套餐类型</th>
+      <td colspan="8">价差分成类套餐</td>
+    </tr>
+    <tr>
+      <th>执行周期</th>
+      <td colspan="8">2026年1月1日-2026年12月31日</td>
+    </tr>
+    <tr>
+      <th>时间</th>
+      <th>基准价</th>
+      <th>正收益用户分成比例（%）</th>
+      <th>负收益用户分摊比例（%）</th>
+      <th>偏差考核基准（兆瓦时）</th>
+      <th>用户超用电量考核阈值（%）</th>
+      <th>用户少用电量考核阈值（%）</th>
+      <th>用户超用电量偏差考核费率（元/兆瓦时）</th>
+      <th>用户少用电量偏差考核费率（元/兆瓦时）</th>
+    </tr>
+    <tr><td>0:00-1:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_0}}</span></td><td><span class="var">{{jjwh_neg_0}}</span></td><td><span class="var">{{jjwh_dev_0}}</span></td><td><span class="var">{{jjwh_over_0}}</span></td><td><span class="var">{{jjwh_under_0}}</span></td><td><span class="var">{{jjwh_overRate_0}}</span></td><td><span class="var">{{jjwh_underRate_0}}</span></td></tr>
+    <tr><td>1:00-2:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_1}}</span></td><td><span class="var">{{jjwh_neg_1}}</span></td><td><span class="var">{{jjwh_dev_1}}</span></td><td><span class="var">{{jjwh_over_1}}</span></td><td><span class="var">{{jjwh_under_1}}</span></td><td><span class="var">{{jjwh_overRate_1}}</span></td><td><span class="var">{{jjwh_underRate_1}}</span></td></tr>
+    <tr><td>2:00-3:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_2}}</span></td><td><span class="var">{{jjwh_neg_2}}</span></td><td><span class="var">{{jjwh_dev_2}}</span></td><td><span class="var">{{jjwh_over_2}}</span></td><td><span class="var">{{jjwh_under_2}}</span></td><td><span class="var">{{jjwh_overRate_2}}</span></td><td><span class="var">{{jjwh_underRate_2}}</span></td></tr>
+    <tr><td>3:00-4:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_3}}</span></td><td><span class="var">{{jjwh_neg_3}}</span></td><td><span class="var">{{jjwh_dev_3}}</span></td><td><span class="var">{{jjwh_over_3}}</span></td><td><span class="var">{{jjwh_under_3}}</span></td><td><span class="var">{{jjwh_overRate_3}}</span></td><td><span class="var">{{jjwh_underRate_3}}</span></td></tr>
+    <tr><td>4:00-5:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_4}}</span></td><td><span class="var">{{jjwh_neg_4}}</span></td><td><span class="var">{{jjwh_dev_4}}</span></td><td><span class="var">{{jjwh_over_4}}</span></td><td><span class="var">{{jjwh_under_4}}</span></td><td><span class="var">{{jjwh_overRate_4}}</span></td><td><span class="var">{{jjwh_underRate_4}}</span></td></tr>
+    <tr><td>5:00-6:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_5}}</span></td><td><span class="var">{{jjwh_neg_5}}</span></td><td><span class="var">{{jjwh_dev_5}}</span></td><td><span class="var">{{jjwh_over_5}}</span></td><td><span class="var">{{jjwh_under_5}}</span></td><td><span class="var">{{jjwh_overRate_5}}</span></td><td><span class="var">{{jjwh_underRate_5}}</span></td></tr>
+    <tr><td>6:00-7:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_6}}</span></td><td><span class="var">{{jjwh_neg_6}}</span></td><td><span class="var">{{jjwh_dev_6}}</span></td><td><span class="var">{{jjwh_over_6}}</span></td><td><span class="var">{{jjwh_under_6}}</span></td><td><span class="var">{{jjwh_overRate_6}}</span></td><td><span class="var">{{jjwh_underRate_6}}</span></td></tr>
+    <tr><td>7:00-8:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_7}}</span></td><td><span class="var">{{jjwh_neg_7}}</span></td><td><span class="var">{{jjwh_dev_7}}</span></td><td><span class="var">{{jjwh_over_7}}</span></td><td><span class="var">{{jjwh_under_7}}</span></td><td><span class="var">{{jjwh_overRate_7}}</span></td><td><span class="var">{{jjwh_underRate_7}}</span></td></tr>
+    <tr><td>8:00-9:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_8}}</span></td><td><span class="var">{{jjwh_neg_8}}</span></td><td><span class="var">{{jjwh_dev_8}}</span></td><td><span class="var">{{jjwh_over_8}}</span></td><td><span class="var">{{jjwh_under_8}}</span></td><td><span class="var">{{jjwh_overRate_8}}</span></td><td><span class="var">{{jjwh_underRate_8}}</span></td></tr>
+    <tr><td>9:00-10:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_9}}</span></td><td><span class="var">{{jjwh_neg_9}}</span></td><td><span class="var">{{jjwh_dev_9}}</span></td><td><span class="var">{{jjwh_over_9}}</span></td><td><span class="var">{{jjwh_under_9}}</span></td><td><span class="var">{{jjwh_overRate_9}}</span></td><td><span class="var">{{jjwh_underRate_9}}</span></td></tr>
+    <tr><td>10:00-11:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_10}}</span></td><td><span class="var">{{jjwh_neg_10}}</span></td><td><span class="var">{{jjwh_dev_10}}</span></td><td><span class="var">{{jjwh_over_10}}</span></td><td><span class="var">{{jjwh_under_10}}</span></td><td><span class="var">{{jjwh_overRate_10}}</span></td><td><span class="var">{{jjwh_underRate_10}}</span></td></tr>
+    <tr><td>11:00-12:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_11}}</span></td><td><span class="var">{{jjwh_neg_11}}</span></td><td><span class="var">{{jjwh_dev_11}}</span></td><td><span class="var">{{jjwh_over_11}}</span></td><td><span class="var">{{jjwh_under_11}}</span></td><td><span class="var">{{jjwh_overRate_11}}</span></td><td><span class="var">{{jjwh_underRate_11}}</span></td></tr>
+    <tr><td>12:00-13:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_12}}</span></td><td><span class="var">{{jjwh_neg_12}}</span></td><td><span class="var">{{jjwh_dev_12}}</span></td><td><span class="var">{{jjwh_over_12}}</span></td><td><span class="var">{{jjwh_under_12}}</span></td><td><span class="var">{{jjwh_overRate_12}}</span></td><td><span class="var">{{jjwh_underRate_12}}</span></td></tr>
+    <tr><td>13:00-14:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_13}}</span></td><td><span class="var">{{jjwh_neg_13}}</span></td><td><span class="var">{{jjwh_dev_13}}</span></td><td><span class="var">{{jjwh_over_13}}</span></td><td><span class="var">{{jjwh_under_13}}</span></td><td><span class="var">{{jjwh_overRate_13}}</span></td><td><span class="var">{{jjwh_underRate_13}}</span></td></tr>
+    <tr><td>14:00-15:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_14}}</span></td><td><span class="var">{{jjwh_neg_14}}</span></td><td><span class="var">{{jjwh_dev_14}}</span></td><td><span class="var">{{jjwh_over_14}}</span></td><td><span class="var">{{jjwh_under_14}}</span></td><td><span class="var">{{jjwh_overRate_14}}</span></td><td><span class="var">{{jjwh_underRate_14}}</span></td></tr>
+    <tr><td>15:00-16:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_15}}</span></td><td><span class="var">{{jjwh_neg_15}}</span></td><td><span class="var">{{jjwh_dev_15}}</span></td><td><span class="var">{{jjwh_over_15}}</span></td><td><span class="var">{{jjwh_under_15}}</span></td><td><span class="var">{{jjwh_overRate_15}}</span></td><td><span class="var">{{jjwh_underRate_15}}</span></td></tr>
+    <tr><td>16:00-17:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_16}}</span></td><td><span class="var">{{jjwh_neg_16}}</span></td><td><span class="var">{{jjwh_dev_16}}</span></td><td><span class="var">{{jjwh_over_16}}</span></td><td><span class="var">{{jjwh_under_16}}</span></td><td><span class="var">{{jjwh_overRate_16}}</span></td><td><span class="var">{{jjwh_underRate_16}}</span></td></tr>
+    <tr><td>17:00-18:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_17}}</span></td><td><span class="var">{{jjwh_neg_17}}</span></td><td><span class="var">{{jjwh_dev_17}}</span></td><td><span class="var">{{jjwh_over_17}}</span></td><td><span class="var">{{jjwh_under_17}}</span></td><td><span class="var">{{jjwh_overRate_17}}</span></td><td><span class="var">{{jjwh_underRate_17}}</span></td></tr>
+    <tr><td>18:00-19:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_18}}</span></td><td><span class="var">{{jjwh_neg_18}}</span></td><td><span class="var">{{jjwh_dev_18}}</span></td><td><span class="var">{{jjwh_over_18}}</span></td><td><span class="var">{{jjwh_under_18}}</span></td><td><span class="var">{{jjwh_overRate_18}}</span></td><td><span class="var">{{jjwh_underRate_18}}</span></td></tr>
+    <tr><td>19:00-20:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_19}}</span></td><td><span class="var">{{jjwh_neg_19}}</span></td><td><span class="var">{{jjwh_dev_19}}</span></td><td><span class="var">{{jjwh_over_19}}</span></td><td><span class="var">{{jjwh_under_19}}</span></td><td><span class="var">{{jjwh_overRate_19}}</span></td><td><span class="var">{{jjwh_underRate_19}}</span></td></tr>
+    <tr><td>20:00-21:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_20}}</span></td><td><span class="var">{{jjwh_neg_20}}</span></td><td><span class="var">{{jjwh_dev_20}}</span></td><td><span class="var">{{jjwh_over_20}}</span></td><td><span class="var">{{jjwh_under_20}}</span></td><td><span class="var">{{jjwh_overRate_20}}</span></td><td><span class="var">{{jjwh_underRate_20}}</span></td></tr>
+    <tr><td>21:00-22:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_21}}</span></td><td><span class="var">{{jjwh_neg_21}}</span></td><td><span class="var">{{jjwh_dev_21}}</span></td><td><span class="var">{{jjwh_over_21}}</span></td><td><span class="var">{{jjwh_under_21}}</span></td><td><span class="var">{{jjwh_overRate_21}}</span></td><td><span class="var">{{jjwh_underRate_21}}</span></td></tr>
+    <tr><td>22:00-23:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_22}}</span></td><td><span class="var">{{jjwh_neg_22}}</span></td><td><span class="var">{{jjwh_dev_22}}</span></td><td><span class="var">{{jjwh_over_22}}</span></td><td><span class="var">{{jjwh_under_22}}</span></td><td><span class="var">{{jjwh_overRate_22}}</span></td><td><span class="var">{{jjwh_underRate_22}}</span></td></tr>
+    <tr><td>23:00-24:00</td><td style="font-size:11px;">整体批发市场该小时中长期及现货综合结算均价</td><td><span class="var">{{jjwh_pos_23}}</span></td><td><span class="var">{{jjwh_neg_23}}</span></td><td><span class="var">{{jjwh_dev_23}}</span></td><td><span class="var">{{jjwh_over_23}}</span></td><td><span class="var">{{jjwh_under_23}}</span></td><td><span class="var">{{jjwh_overRate_23}}</span></td><td><span class="var">{{jjwh_underRate_23}}</span></td></tr>
+  </table>
+  <p class="note">*1.套餐约定内容甲乙双方盖章后生效。</p>
+  <p class="note">*2.偏差考核基准应保留小数点后三位。</p>
+</div>
+
+<!-- ==================== 附件二：绿电套餐 ==================== -->
+<div class="page">
+  <div class="attachment-header">附件二：2026年零售市场绿电交易零售套餐（绿电类）</div>
+  <table class="form-table">
+    <tr>
+      <th>甲方（盖章）</th>
+      <td><span class="var var-long">{{partyASeal}}</span></td>
+    </tr>
+    <tr>
+      <th>乙方（盖章）</th>
+      <td><span class="var var-long">{{partyBSeal}}</span></td>
+    </tr>
+    <tr>
+      <th>套餐类型</th>
+      <td>绿电类零售套餐</td>
+    </tr>
+    <tr>
+      <th>执行周期</th>
+      <td>2026年1月1日-2026年12月31日</td>
+    </tr>
+    <tr>
+      <th>绿色电力环境价值（元/兆瓦时）</th>
+      <td><span class="var var-long">{{greenEnvValue}}</span></td>
+    </tr>
+  </table>
+  <p class="note">*1.绿电类零售套餐中仅约定零售用户绿色电力环境价值（溢价）。</p>
+  <p class="note">*2.套餐约定内容甲乙双方盖章后生效。</p>
+  <p class="note">*3.绿色电力环境价值应保留小数点后三位。</p>
+
+  <div style="margin-top: 40px;">
+    <div class="attachment-header">附件二：2026年零售市场绿电交易零售套餐（绿电类·价差分成）</div>
+    <table class="form-table">
+      <tr>
+        <th>甲方（盖章）</th>
+        <td><span class="var var-long">{{partyASeal}}</span></td>
+      </tr>
+      <tr>
+        <th>乙方（盖章）</th>
+        <td><span class="var var-long">{{partyBSeal}}</span></td>
+      </tr>
+      <tr>
+        <th>套餐类型</th>
+        <td>绿电类零售套餐</td>
+      </tr>
+      <tr>
+        <th>执行周期</th>
+        <td>2026年1月1日-2026年12月31日</td>
+      </tr>
+      <tr>
+        <th>环境价值基准价（元/兆瓦时）</th>
+        <td><span class="var var-long">{{greenBasePrice}}</span></td>
+      </tr>
+      <tr>
+        <th>用户分成比例（%）</th>
+        <td><span class="var var-long">{{greenShareRatio}}</span></td>
+      </tr>
+    </table>
+    <p class="note">*1.绿电类零售套餐中仅约定零售用户绿色电力环境价值（溢价）。</p>
+    <p class="note">*2.绿色电力环境价值（溢价）=环境价值基准价+分成比例×（售电公司批发市场绿色电力环境价值-环境价值基准价）。</p>
+    <p class="note">*3.套餐约定内容甲乙双方盖章后生效。</p>
+    <p class="note">*4.环境价值基准价应保留小数点后三位。</p>
+  </div>
+</div>
+
+
+<!-- ==================== 签字页 ==================== -->
+<div class="page">
+  <p style="margin-bottom: 50px;">（签字页）</p>
+
+  <div style="margin-left: 2em; margin-bottom: 100px;">
+    <p style="margin-bottom: 20px;">甲方（盖章）：<span class="var var-long">{{partyASeal}}</span></p>
+    <p style="margin-bottom: 20px;">法定代表人：<span class="var var-long">{{partyALegalRepSign}}</span></p>
+    <p style="margin-bottom: 20px;">（或授权代表）：<span class="var var-long">{{partyAAuthRep}}</span></p>
+    <p style="margin-bottom: 20px;">签订时间：<span class="var var-long">{{partyASignDate}}</span></p>
+  </div>
+
+  <div style="margin-left: 2em;">
+    <p style="margin-bottom: 20px;">乙方（盖章）：<span class="var var-long">{{partyBSeal}}</span></p>
+    <p style="margin-bottom: 20px;">法定代表人：<span class="var var-long">{{partyBLegalRepSign}}</span></p>
+    <p style="margin-bottom: 20px;">（或授权代表）：<span class="var var-long">{{partyBAuthRep}}</span></p>
+    <p style="margin-bottom: 20px;">签订时间：<span class="var var-long">{{partyBSignDate}}</span></p>
+  </div>
+</div>
+
+</body>
+</html>
